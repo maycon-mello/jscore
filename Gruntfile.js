@@ -18,7 +18,7 @@ module.exports = function (grunt) {
         }
     });
     //
-    grunt.loadNpmTasks('grunt-contrib-annotations');
+    grunt.loadTasks("build/tasks")
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-jsdoc');
     //
