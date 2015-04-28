@@ -2,7 +2,7 @@
 module.exports = function (grunt) {
     
     var fs = require( "fs" ),
-            dirName = __dirname + "/../../../",
+            dirName = __dirname + "/../../",
             srcFolder = dirName + "/src/",
             jsCode = "var ";
     
