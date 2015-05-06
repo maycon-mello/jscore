@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>QUnit tests</title>
+    </head>
+    <body>
+        <canvas width="800" height="800"></canvas>
+        <script src="../dist.js"></script>
+        <script>
+            var canvas = document.getElementsByTagName("canvas")[0],
+                ctx = canvas.getContext("2d");
+        
+        //console.log(jscore.glyph.Glyph.createGlyph('v18'));
+        var glyphs = {
+            HEAD: 'vb',
+            REST: 'v14',
+            REST2: 'v2a',
+            REST1_UP: 'v54',
+        };
+        var g, x = 10, y = 50, scale = 0.04; 
+        for(g in glyphs){
+            var glyph = jscore.glyph.Glyph.getGlyph(glyphs[g]);
+            var width = glyph.width * scale;
+            var height = glyph.height * scale;
+            //
+            jscore.glyph.Glyph.render(ctx, glyphs[g], x, y, scale);
+            //
+            ctx.beginPath();
+            ctx.rect(x  , y - height/2, width, height);
+            ctx.stroke();
+            x += 50;
+        }
+        
+        </script>
+    </body>
+</html>

@@ -53,7 +53,7 @@ jscore.model.bar.note.Head = (function(){
      * @return {Number} compare result
      */
     Head.prototype.compareTo = function (h) {
-        return key.compareTo(h.getKey());
+        return this.getKey().compareTo(h.getKey());
     };
     //
     return Head;
