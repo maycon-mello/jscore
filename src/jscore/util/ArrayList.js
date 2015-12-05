@@ -1,4 +1,4 @@
-jscore.util.ArrayList = function(){
+function ArrayList() {
 	var list = [];
 
 	this.clear = function(){
@@ -13,4 +13,6 @@ jscore.util.ArrayList = function(){
 	this.forEach = function(callback){
 		list.forEach(callback);
 	};
-};
+}
+
+module.exports = ArrayList;

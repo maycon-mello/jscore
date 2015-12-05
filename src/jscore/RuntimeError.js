@@ -1,14 +1,16 @@
 /**
  * @constructor
  */
-jscore.RuntimeError = function (code, message) {
+class RuntimeError { 
+
+  constructor(code, message) {
     this.code = code;
     this.message = message;
-};
-/**
- * 
- * @returns {String}
- */
-jscore.RuntimeError.prototype.toString = function () {
+  }
+  
+  toString() {
     return "RuntimeError: " + this.message;
-};
+  };
+}
+
+module.exports = RuntimeError;

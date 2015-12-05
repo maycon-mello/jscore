@@ -1,43 +1,34 @@
-/*
- *
- * @require jscore.model.Staff;
+/**
+ * @exports jscore.Score 
+ * @constructor
  */
-jscore.model.Score = (function () {
-    /**
-     * @exports jscore.Score 
-     * @constructor
-     */
-    function Score() {
+class Score {
 
+    constructor() {
+        this._staffList = [];
     }
-    /**
-     * @private
-     * @property {Staff} staffList
-     */
-    Score.prototype._staffList = [];
     /*
      * 
      * @param {RendererContext} ctx
      */
-    Score.prototype.update = function (ctx) {
+    update (ctx) {
         this._staffList.forEach(function (staff) {
             staff.draw(ctx);
         });
-    };
+    }
     /**
      * 
      * @param {String} cleff
      * @return {Staff} createdStaff
      */
-    Score.prototype.createStaff = function (cleff) {
+    createStaff (cleff) {
         var staff = new Staff(cleff);
         this._staffList.push(staff);
         return staff;
-    };
+    }
+}
 
-
-    return Score;
-})();
+exports = Score;
 /*
  <body>
  <div id="jScore1"></div>
