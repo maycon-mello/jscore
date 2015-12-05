@@ -1,20 +1,24 @@
-import Tickable from "./";
-import DrawLog from "../util";
-import Beat from "./bar"
+/**
+ * @package jscore.model
+ */
+import Tickable from "./Tickable";
+import DrawLog from "../util/DrawLog";
+import Beat from "./bar/Beat";
 
 class Bar extends Tickable {
 
   constructor () {
+    super();
     /**
-     * 
+     *
      * @private
      * @property {jscore.model.bar.Note[]} beats
      */
     this.notes = [];
     /**
-     * 
+     *
      * @private
-     * @property {Boolean} newLine 
+     * @property {Boolean} newLine
      */
     this.newLine = false;
   }
@@ -49,14 +53,14 @@ class Bar extends Tickable {
     DrawLog.removeLevel();
   }
   /**
-   * 
+   *
    * @return {Boolean} isNewLine
    */
   isNewLine () {
     return newLine;
   }
   /**
-   * 
+   *
    * @param {Boolean} newLine
    */
   setNewLine (newLine) {
@@ -90,16 +94,16 @@ class Bar extends Tickable {
     return this.notes;
   }
   /**
-   * 
+   *
    * @returns {Number} width
    */
   getWidth () {
     var width = 0;
-    
+
     this.notes.forEach(function (note) {
         width += note.getWidth();
     });
-    
+
     return width;
   }
 }

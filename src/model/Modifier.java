@@ -10,8 +10,8 @@ package com.mzm.score;
  * @author maycon.mellos
  */
 public interface Modifier {
-    
+
     public int getWidth();
     public int getHeight();
-    
+
 }

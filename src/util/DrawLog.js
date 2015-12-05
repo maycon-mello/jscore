@@ -1,4 +1,5 @@
-var log = require("./ArrayList.js");
+import log from './ArrayList.js';
+
 var level = "";
 
 var DrawLog =  {
@@ -27,7 +28,7 @@ var DrawLog =  {
       console.log(level + s);
     });
     console.log("################################");
-    return this;    
+    return this;
   }
 };
 

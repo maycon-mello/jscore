@@ -1,13 +1,10 @@
-/**
- * @constructor
- */
-class RuntimeError { 
+class RuntimeError {
 
-  constructor(code, message) {
+  constructor (code, message) {
     this.code = code;
     this.message = message;
   }
-  
+
   toString() {
     return "RuntimeError: " + this.message;
   };

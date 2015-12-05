@@ -1,27 +1,33 @@
-
 module.exports = function (grunt) {
-    "use strict";
-
-    // Project configuration.
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        qunit: {
-            all: ['tests/*.html']
-        },
-        jsdoc : {
-            dist : {
-                src: ['src/**/*.js'],
-                options: {
-                    destination: 'doc'
-                }
+   grunt.initConfig({
+      browserify: {
+         dist: {
+            options: {
+               transform: [
+                  ["babelify", {
+                     loose: "all"
+                  }]
+               ]
+            },
+            files: {
+               // if the source file has an extension of es6 then
+               // we change the name of the source file accordingly.
+               // The result file's extension is always .js
+               "./dist/jscore.js": ["./src/main.js"]
             }
-        }
-    });
-    //
-    grunt.loadTasks("build/tasks")
-    grunt.loadNpmTasks('grunt-contrib-qunit');
-    grunt.loadNpmTasks('grunt-jsdoc');
-    //
-    grunt.registerTask('default', ['jsdoc','annotations', 'qunit']);
+         }
+      },
+      watch: {
+         scripts: {
+            files: ["./src/*.js"],
+            tasks: ["browserify"]
+         }
+      }
+   });
 
+   grunt.loadNpmTasks("grunt-browserify");
+   grunt.loadNpmTasks("grunt-contrib-watch");
+
+   grunt.registerTask("default", ["watch", "browserify"]);
+   grunt.registerTask("build", ["browserify"]);
 };
