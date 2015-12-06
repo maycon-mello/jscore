@@ -1,1 +1,1 @@
-teste
+jScore library

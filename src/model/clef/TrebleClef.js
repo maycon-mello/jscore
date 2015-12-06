@@ -5,7 +5,7 @@ import RendererContext from '../../RendererContext';
 import Tickable from '../Tickable';
 import Key from '../bar/note/Key';
 
-class TrebleCleff extends Tickable {
+class TrebleClef extends Tickable {
     /*
         ------ F    4
                E    3
@@ -19,7 +19,7 @@ class TrebleCleff extends Tickable {
      */
     constructor () {
       super();
-      this.middle = new Key(KeyName.B, 2);
+      this.middle = new Key('B2');
     }
 
 
@@ -34,8 +34,10 @@ class TrebleCleff extends Tickable {
         // return location + (currentKey - middleKey);
     }
 
-    draw(ctx) {
+    draw (ctx) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
+
+module.exports = TrebleClef

@@ -5,7 +5,7 @@ class RuntimeError {
     this.message = message;
   }
 
-  toString() {
+  toString () {
     return "RuntimeError: " + this.message;
   };
 }

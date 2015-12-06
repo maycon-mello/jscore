@@ -6,11 +6,12 @@
     </head>
     <body>
         <canvas width="800" height="800"></canvas>
-        <script src="../dist.js"></script>
+        <script src="../dist/jscore.js"></script>
         <script>
-            var canvas = document.getElementsByTagName("canvas")[0],
-                ctx = canvas.getContext("2d");
-        
+        var canvas = document.getElementsByTagName("canvas")[0],
+            ctx = canvas.getContext("2d");
+
+        canvas.height = 1400;
         //console.log(jscore.glyph.Glyph.createGlyph('v18'));
         var glyphs = {
             HEAD: 'vb',
@@ -18,20 +19,34 @@
             REST2: 'v2a',
             REST1_UP: 'v54',
         };
-        var g, x = 10, y = 50, scale = 0.04; 
-        for(g in glyphs){
-            var glyph = jscore.glyph.Glyph.getGlyph(glyphs[g]);
+        glyphs = jScore.Glyph.Font.glyphs;
+
+        var code, x = 10, y = 50, scale = 0.04;
+        var hSum = 0;
+        for (code in glyphs) {
+            console.log(code);
+            var glyph = jScore.Glyph.getGlyph(code);
             var width = glyph.width * scale;
             var height = glyph.height * scale;
             //
-            jscore.glyph.Glyph.render(ctx, glyphs[g], x, y, scale);
+            try {
+              jScore.Glyph.render(ctx, code, x, y, scale);
+            } catch(ex) {
+
+            }
             //
             ctx.beginPath();
-            ctx.rect(x  , y - height/2, width, height);
+            ctx.rect(x  , y - height / 2, width, height);
             ctx.stroke();
+            ctx.fillText(code, x + 25, y - 25);
             x += 50;
+            if (x > canvas.width - 100) {
+              hSum += 100;
+              x = 0;
+              ctx.translate(0, 100);
+            }
         }
-        
+
         </script>
     </body>
 </html>

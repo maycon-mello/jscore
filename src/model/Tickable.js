@@ -20,49 +20,49 @@ class Tickable {
     //protected int
     this.x = 0;
 
-    console.log(width);
+    //console.log(width);
   }
   /**
    *
    * @returns {Object} padding
    */
-  getPadding() {
+  getPadding () {
     return this.padding;
   };
   /**
    *
    * @param {Object} padding
    */
-  setPadding(padding) {
+  setPadding (padding) {
     this.padding = padding;
   };
   /**
    *
    * @returns {Integer} width
    */
-  getWidth() {
+  getWidth () {
     return this.glyph.getWidth();
   };
   /**
    *
    *
    */
-  getHeight() {
+  getHeight () {
     return height;
   };
   //public int
-  getX() {
+  getX () {
     return this.x;
   };
   //public int
-  getY() {
+  getY () {
     return this.y;
   };
   /**
    *
    * @param {jscore.model.bar.note.Key} ctx
    */
-  draw(ctx) {
+  draw (ctx) {
 
   };
 }

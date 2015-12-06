@@ -3,15 +3,15 @@
  */
 
 import Bar from './Bar';
-import TrebleCleff from './cleff/TrebleCleff';
+import TrebleClef from './clef/TrebleClef';
 
 class Staff {
 
   /**
-   * @param {String} cleffName
+   * @param {String} clefName
    */
-  constructor (cleffName) {
-    //this.cleff = TrebleCleff.create(cleffName);
+  constructor (clefName) {
+    //this.clef = TrebleClef.create(clefName);
     /**
      * @private
      * @property {Array<Bar>}
@@ -19,17 +19,21 @@ class Staff {
     this._barList = [];
     /**
      * @private
-     * @property {Cleff}
+     * @property {Clef}
      */
-    this._cleff = null;
+    this._clef = new TrebleClef();
   }
   /**
    * @param {RenderingContext} ctx
    */
   draw (ctx) {
     var startX = ctx.x;
-    this.cleff.draw(ctx);
-    this.bars.forEach(function (bar) {
+    this._clef.draw(ctx);
+    // Define the context clef
+    // this clef contains note positions
+    ctx.clef = this._clef;
+
+    this._barList.forEach(function (bar) {
         ctx.x = startX;
         //ctx.y += this.getHeight();
         bar.draw(ctx);
@@ -41,8 +45,8 @@ class Staff {
    * @returns {Bar} created bar
    */
   createBar (timeSignature) {
-    //if a timeSignature is not defined the last staff bar timeSignature will be used
-    //if the staff has no bars, so '4/4' will be assumed as timeSignature
+    // if a timeSignature is not defined the last staff bar timeSignature will be used
+    // if the staff has no bars, so '4/4' will be assumed as timeSignature
     if (!timeSignature) {
         var lastBar = this._getLastBar();
         timeSignature = lastBar ? lastBar.timeSignature : '4/4';
@@ -89,16 +93,17 @@ class Staff {
     }
   }
   /**
-   * @return {Cleff} cleff
+   * @return {Clef} clef
    */
-  getCleff () {
-    return this._cleff;
+  getClef () {
+    return this._clef;
   }
   /**
-   * @param {Cleff} cleff
+   * @param {Clef} clef
    */
-  setCleff (cleff) {
-    this._cleff = cleff;
+  setClef (clef) {
+    this._clef = clef;
   }
 }
-exports = Staff;
+
+module.exports = Staff;

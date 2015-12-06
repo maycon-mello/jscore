@@ -3,16 +3,19 @@ class ArrayList {
 	constructor () {
 		this.list = [];
 	}
-	clear() {
+	clear () {
 		this.list.splice(0, this.list.length);
-	};
-	get(idx) {
+	}
+	get (idx) {
 		return this.list[idx];
-	};
-	remove(idx) {
+	}
+	remove (idx) {
 		this.list.splice(idx, 1);
-	};
-	forEach(callback) {
+	}
+	push (item) {
+		this.list.push(item);
+	}
+	forEach (callback) {
 		this.list.forEach(callback);
 	};
 }

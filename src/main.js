@@ -1,23 +1,27 @@
-import Score from './model/Score';
+var Score= require('./model/Score.js');
 import RendererContext from './RendererContext';
 import Viewport from './ui/Viewport';
 import Tickable from './model/Tickable';
+import Glyph from './glyph/Glyph';
 
 function jScore (args) {
-  var score = new Score();
+
+  console.log(score);
   //
-  var canvas = document.createElement('canvas');
+  let canvas = document.createElement('canvas');
   args.container.appendChild(canvas);
   //add a new argument in args object
   args.canvasElement = canvas;
-  var ctx = new RendererContext(args);
+  let ctx = new RendererContext(args);
       ctx.observers.push(score);
+
+  let score = new Score(ctx);
   //
-  var viewport = new Viewport(ctx);
+  //let viewport = new Viewport(ctx);
   //
   return score;
 }
-var tick = new Tickable(500, 400);
-console.log(tick);
+
+jScore.Glyph = Glyph;
 
 window.jScore = jScore;

@@ -9,4 +9,4 @@ class Viewport {
 
 }
 
-exports = Viewport;
+module.exports = Viewport;

@@ -1,9 +1,10 @@
 /**
  * @package jscore.model
  */
-import Tickable from "./Tickable";
-import DrawLog from "../util/DrawLog";
-import Beat from "./bar/Beat";
+import Tickable from './Tickable';
+import DrawLog from '../util/DrawLog';
+import Beat from './bar/Beat';
+import Note from './bar/Note';
 
 class Bar extends Tickable {
 
@@ -44,7 +45,7 @@ class Bar extends Tickable {
     //ctx.drawLine(c.x, c.y, c.x, c.y + c.getStaffHeight();
     //draw horizontal lines
     y = ctx.y;
-    headHeight = ctx.getProperty(RendererContext.Property.NOTE_HEAD_HEIGHT);
+    headHeight = ctx.getProperty(ctx.properties.NOTE_HEAD_HEIGHT);
     //
     for(i = 0; i < 5; i++){
       //ctx.drawLine(startX, y, c.x, y);
@@ -70,14 +71,18 @@ class Bar extends Tickable {
    * Add a note in the bar. Automaticaly creates beats
    * @param {jscore.model.bar.Note} note
    */
-  addNote (note) {
+  addNote (n) {
     /*var lastBeat = this.getLastBeat();
     if(lastBeat.duration === 1){
         this.beats.push(new Beat());
         lastBeat = this.getLastBeat();
     }
     lastBeat.addNote(note);*/
+    var note = new Note(n);
+
     this.notes.push(note);
+
+    return note;
   }
   /**
    * Returns the last beat
@@ -108,4 +113,4 @@ class Bar extends Tickable {
   }
 }
 
-exports = Bar;
+module.exports = Bar;

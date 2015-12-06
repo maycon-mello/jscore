@@ -5,14 +5,16 @@
 import Staff from './Staff';
 
 class Score {
-  constructor() {
+  constructor (ctx) {
+    this.ctx = ctx;
     this._staffList = [];
   }
   /*
    *
    * @param {RendererContext} ctx
    */
-  update (ctx) {
+  draw () {
+    var ctx = this.ctx;
     this._staffList.forEach(function (staff) {
       staff.draw(ctx);
     });
@@ -29,7 +31,7 @@ class Score {
   }
 }
 
-exports = Score;
+module.exports = Score;
 /*
  <body>
  <div id="jScore1"></div>

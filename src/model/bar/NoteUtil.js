@@ -1,3 +1,7 @@
+import Key from './note/Key';
+import Head from './note/Head';
+import DrawLog from '../../util/DrawLog';
+
 var NoteUtil = {};
 
 /**
@@ -6,9 +10,11 @@ var NoteUtil = {};
  * @param {Array<Key>} keys
  * @param {Integer} duration
  */
-NoteUtil.createHeads(keys, duration) {
+NoteUtil.createHeads = function (keys, duration) {
     var heads = [];
+    console.log(keys);
     keys.forEach(function (key) {
+      console.log(key);
         if (typeof key === 'string') {
             key = new Key(key);
         }
@@ -41,4 +47,4 @@ NoteUtil.log = {
   }
 }
 
-exports = NoteUtil;
+module.exports = NoteUtil;

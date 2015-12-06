@@ -1,6 +1,7 @@
-import log from './ArrayList.js';
+import ArrayList from './ArrayList.js';
 
 var level = "";
+var log = new ArrayList();
 
 var DrawLog =  {
   getInstance: function () {
@@ -15,7 +16,7 @@ var DrawLog =  {
     return this;
   },
   removeLevel: function () {
-    level = level.substring(0, level.length() - 2);
+    level = level.substring(0, level.length - 2);
     return this;
   },
   clear: function () {

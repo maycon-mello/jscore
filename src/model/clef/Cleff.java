@@ -13,8 +13,8 @@ import com.mzm.score.bar.note.Key;
  * @author maycon.mellos
  */
 public interface Cleff {
-
+    
     public int getKeyLocation(Key k);
     public void draw(RendererContext ctx);
-
+    
 }
