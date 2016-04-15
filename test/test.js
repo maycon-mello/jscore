@@ -32,20 +32,27 @@ describe('Creating score', function() {
 
   it('Creating bar and note', () => {
     assert.equal(staff._barList.length, 0);
+
     // create bar
     let timeSignature = '4/4'
     let bar = staff.createBar(timeSignature);
     assert.equal(bar.getTimeSignature(), timeSignature);
     assert.equal(staff._barList.length, 1);
 
-    // create note
+    // Create a Whole note Chord
     let noteOptions = {
       keys: ['c1', 'e1', 'f1'],
-      duration: 1,
+      duration: 1, // WHOLE NOTE
       orientation: 1,
       modifiers: [],
     }
-    let note = staff.addNote(noteOptions);
+
+    staff.addNote(noteOptions);
+
+    let note = bar.notes[0];
+    assert.equal(note.heads.length, 3);
+    assert.equal(note.beam, null);
+    assert.equal(note.steam, null);
   })
 
 });
