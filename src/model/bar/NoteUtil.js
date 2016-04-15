@@ -12,13 +12,12 @@ var NoteUtil = {};
  */
 NoteUtil.createHeads = function (keys, duration) {
     var heads = [];
-    console.log(keys);
     keys.forEach(function (key) {
-      console.log(key);
-        if (typeof key === 'string') {
-            key = new Key(key);
-        }
-        heads.push(new Head(key, duration));
+      key = key.toUpperCase();
+      if (typeof key === 'string') {
+          key = new Key(key);
+      }
+      heads.push(new Head(key, duration));
     });
     return heads;
 }

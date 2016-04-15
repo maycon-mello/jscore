@@ -42,7 +42,7 @@ class RendererContext {
     this.canvas = args.canvasElement.getContext("2d");
     /**
      * Scale
-     * @member {Integer}
+     * @member {Float}
      */
     this.scale = 1;
     /**

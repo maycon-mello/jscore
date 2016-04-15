@@ -1,36 +1,51 @@
 import ArrayList from './ArrayList.js';
 
-var level = "";
-var log = new ArrayList();
+let level = "";
+let log = new ArrayList();
+let logEnabled = true;
 
-var DrawLog =  {
-  getInstance: function () {
+export default class DrawLog {
+
+  static getInstance() {
     return this;
-  },
-  add: function (str) {
+  }
+
+  static setLogEnabled(enabled) {
+    logEnabled = enabled
+  }
+  static add(str) {
     log.push(str);
     return this;
-  },
-  addLevel: function () {
+  }
+
+  static addLevel() {
     level += "  ";
     return this;
-  },
-  removeLevel: function () {
+  }
+
+  static removeLevel() {
     level = level.substring(0, level.length - 2);
     return this;
-  },
-  clear: function () {
+  }
+
+  static clear() {
     log.splice(0, log.length);
     return this;
-  },
-  print: function () {
+  }
+
+  static print() {
+    //if (!logEnabled) {
+      return;
+    //}
+
     console.log("########## DrawLog #############");
+
     log.forEach(function (s) {
       console.log(level + s);
     });
+
     console.log("################################");
+
     return this;
   }
-};
-
-module.exports = DrawLog;
+}

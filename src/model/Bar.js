@@ -1,6 +1,7 @@
 /**
  * @package jscore.model
  */
+import invariant from 'invariant';
 import Tickable from './Tickable';
 import DrawLog from '../util/DrawLog';
 import Beat from './bar/Beat';
@@ -8,12 +9,22 @@ import Note from './bar/Note';
 
 class Bar extends Tickable {
 
-  constructor () {
+  constructor (timeSignature) {
     super();
+
+    invariant(timeSignature, 'Required parameter `{timeSignature}`');
+
     /**
      *
      * @private
-     * @property {jscore.model.bar.Note[]} beats
+     * @property {String} timeSignature
+     */
+    this.timeSignature = timeSignature;
+
+    /**
+     *
+     * @private
+     * @property {Note[]} beats
      */
     this.notes = [];
     /**
@@ -111,6 +122,11 @@ class Bar extends Tickable {
 
     return width;
   }
+
+  getTimeSignature() {
+    return this.timeSignature;
+  }
+
 }
 
 module.exports = Bar;

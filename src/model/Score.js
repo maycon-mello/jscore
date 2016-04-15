@@ -1,13 +1,16 @@
 /**
  * @package jscore.model
  */
-
+import invariant from 'invariant';
 import Staff from './Staff';
+import Clef from './clef/Clef';
 
 class Score {
   constructor (ctx) {
     this.ctx = ctx;
     this._staffList = [];
+
+    ctx.observers.push(this);
   }
   /*
    *
@@ -24,14 +27,24 @@ class Score {
    * @param {String} cleff
    * @return {Staff} createdStaff
    */
-  createStaff (cleff) {
-    var staff = new Staff(cleff);
+  createStaff (clefName) {
+    let clef = Clef[clefName];
+    invariant(clef, 'Invalid clef');
+
+    let staff = new Staff(clef);
+
     this._staffList.push(staff);
+
     return staff;
   }
+
+  static Clef = Clef;
+  static Staff = Staff;
 }
 
-module.exports = Score;
+export default Score;
+
+
 /*
  <body>
  <div id="jScore1"></div>

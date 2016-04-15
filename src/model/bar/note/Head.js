@@ -10,7 +10,6 @@ class Head extends Tickable {
    */
   constructor (key, duration) {
     super();
-    console.log(Glyph);
     this.key = key;
     switch (duration) {
       case 1: {

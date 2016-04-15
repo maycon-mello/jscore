@@ -14,8 +14,8 @@ class Glyph {
    }
 
    draw (ctx, x, y) {
-     console.log(ctx);
-     console.log(this.code);
+     //console.log(ctx);
+     //console.log(this.code);
      Glyph.render(ctx.canvas, this.code, x, y, 1);
    }
 

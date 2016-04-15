@@ -51,6 +51,7 @@ class Staff {
         var lastBar = this._getLastBar();
         timeSignature = lastBar ? lastBar.timeSignature : '4/4';
     }
+
     var bar = new Bar(timeSignature);
     this._barList.push(bar);
     return bar;

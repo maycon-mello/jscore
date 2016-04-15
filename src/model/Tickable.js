@@ -1,10 +1,12 @@
+import Comparable from '../util/Comparable'
 /**
  * @package jscore.model
  */
 
-class Tickable {
+class Tickable extends Comparable {
 
   constructor () {
+    super();
     //protected Padding
     this.padding = {};
     //protected int
@@ -20,8 +22,8 @@ class Tickable {
     //protected int
     this.x = 0;
 
-    //console.log(width);
   }
+
   /**
    *
    * @returns {Object} padding
@@ -29,6 +31,7 @@ class Tickable {
   getPadding () {
     return this.padding;
   };
+
   /**
    *
    * @param {Object} padding
@@ -36,6 +39,7 @@ class Tickable {
   setPadding (padding) {
     this.padding = padding;
   };
+
   /**
    *
    * @returns {Integer} width
@@ -43,6 +47,7 @@ class Tickable {
   getWidth () {
     return this.glyph.getWidth();
   };
+
   /**
    *
    *
@@ -50,14 +55,17 @@ class Tickable {
   getHeight () {
     return height;
   };
+
   //public int
   getX () {
     return this.x;
   };
+
   //public int
   getY () {
     return this.y;
   };
+
   /**
    *
    * @param {jscore.model.bar.note.Key} ctx
@@ -67,4 +75,4 @@ class Tickable {
   };
 }
 
-module.exports = Tickable;
+export default Tickable;

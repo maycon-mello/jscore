@@ -1,7 +1,7 @@
 /**
  * @package jscore.model.bar;
  */
-
+import invariant from 'invariant';
 import RendererContext from '../../RendererContext';
 import RuntimeError from '../../RuntimeError';
 import Tickable from '../Tickable';
@@ -14,15 +14,16 @@ import NoteUtil from './NoteUtil';
 class Note extends Tickable {
   /**
    *
-   * @param {Object} obj
-   * @param {String[]} obj.keys ['c','e','f','b']
-   * @param {Note.Duration} obj.duration note duration
-   * @param {Note.Orientation} obj.orientation 1 or -1
-   * @param {String[]} obj.modifiers ['dot','accent','flam']
-   * @param {String} obj.chord chord name 'CM7'
+   * @param {String[]} keys ['c','e','f','b']
+   * @param {Note.Duration} duration note duration
+   * @param {Note.Orientation} orientation 1 or -1
+   * @param {String[]} modifiers ['dot','accent','flam']
    */
-  constructor (obj) {
+  constructor ({ keys, duration, orientation, modifiers }) {
     super();
+
+    invariant(keys, 'Required parameter `{keys}`');
+    invariant(duration, 'Required parameter `{duration}`');
 
     /**
      *
@@ -55,14 +56,14 @@ class Note extends Tickable {
      */
     this.orientation = 1;
 
-    this.setDuration(obj.duration || 0);
-    this.setOrientation(obj.orientation || Note.Orientation.UP);
+    this.setDuration(duration || 0);
+    this.setOrientation(orientation || Note.Orientation.UP);
     /**
      *
      * @private
      * @property {jscore.model.bar.note.Head[]}
      */
-    this.heads = NoteUtil.createHeads(obj.keys, this.duration);
+    this.heads = NoteUtil.createHeads(keys, this.duration);
     //
     Collections.sort(this.heads);
     //create a steam
