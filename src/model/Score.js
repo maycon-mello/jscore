@@ -37,6 +37,14 @@ class Score {
 
     return staff;
   }
+  /**
+   *
+   * @param {Number} idx - staff index
+   * @return {Staff} staff
+   */
+  getStaff(idx) {
+    return this._staffList[idx];
+  }
 
   static Clef = Clef;
   static Staff = Staff;

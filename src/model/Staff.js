@@ -105,6 +105,16 @@ class Staff {
   setClef (clef) {
     this._clef = clef;
   }
+  /**
+   * @param {Bar[]} barList
+   */
+  getBars() {
+    return this._barList;
+  }
+
+  getBar(idx) {
+    return this._barList[idx];
+  }
 }
 
 module.exports = Staff;

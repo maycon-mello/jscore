@@ -1,62 +1,26 @@
-import RendererContext from '../../../RendererContext';
-import RuntimeError from '../../../RuntimeError';
+import invariant from 'invariant';
 import DrawLog from '../../../util/DrawLog';
 import Comparable from '../../../util/Comparable';
-import Tickable from "../../Tickable";
+import Tickable from '../../Tickable';
+import KEY_NAME from '../../../constants/KeyName';
 
-class KeyName {
+
+export default class Key extends Comparable {
   /**
-   *
-   * @param {Number} value - Index value
-   * @param {String} name - Key name
-   */
-  constructor (name, value) {
-    this.value = value;
-    this.name = name;
-  }
-  toString () {
-    return this.name;
-  }
-}
-
-/**
- * @enum {jscore.model.bar.note.Key.KeyName}
- * @readonly
- * @static
- */
-const KEY_NAME = {
-  'C': new KeyName('C', 0),
-  'C#': new KeyName('C#', 1),
-  'Db': new KeyName('Db', 1),
-  'D': new KeyName('D', 2),
-  'D#': new KeyName('D#', 3),
-  'Eb': new KeyName('Eb', 3),
-  'E': new KeyName('E', 4),
-  'F': new KeyName('F', 5),
-  'F#': new KeyName('F#', 6),
-  'Gb': new KeyName('Gb', 6),
-  'G': new KeyName('G', 7),
-  'G#': new KeyName('G#', 8),
-  'Ab': new KeyName('Ab', 8),
-  'A': new KeyName('A', 9),
-  'A#': new KeyName('A#', 10),
-  'Bb': new KeyName('Bb', 10),
-  'B': new KeyName('B', 11)
-};
-
-class Key extends Comparable {
-  /**
-   * @param {jscore.model.bar.note.Key.Name | String} key - key name
+   * @param {String} key - key name
    * @param {Integer} oct - octave number
    */
-  constructor (keyName, oct) {
+  constructor(keyName, oct) {
     super();
 
     if (!oct) {
-        oct = keyName.substring(keyName.length - 1, keyName.length);
-        oct = parseInt(oct);
-        keyName = keyName.substring(0, keyName.length - 1);
+      oct = keyName.substring(keyName.length - 1, keyName.length);
+      oct = parseInt(oct);
+      keyName = keyName.substring(0, keyName.length - 1);
     }
+
+    invariant(keyName, 'Invalid keyName');
+    invariant(oct !== undefined , 'Invalid octave');
 
     this.setKeyName(keyName);
     this.setOctave(oct);
@@ -66,7 +30,7 @@ class Key extends Comparable {
    * Returns keyName object
    * @return {jscore.model.bar.note.KeyName} keyName
    */
-  getKeyName () {
+  getKeyName() {
     return this.keyName;
   };
 
@@ -74,21 +38,25 @@ class Key extends Comparable {
    *
    * @param {jscore.model.bar.note.KeyName} keyName
    */
-  setKeyName (key) {
-    //if (typeof key === 'string') {
-    key = KEY_NAME[key.toUpperCase()];
-    //}
-    // if (!key) {
-    //     throw new RuntimeError('BadArguments', 'invalid key name: ' + key);
-    // }
+  setKeyName(key) {
+    invariant(key, 'Invalid key');
+
+    if (key.length > 1) {
+      key = key.substring(0, 1).toUpperCase() + key.substring(1, 2);
+    } else {
+      key = key.toUpperCase();
+    }
+
+    key = KEY_NAME[key];
     this.keyName = key;
+    this.name = key.name;
   }
 
   /**
    *
    * @return {Integer} octave
    */
-  getOctave () {
+  getOctave() {
     return this.octave;
   }
 
@@ -96,10 +64,8 @@ class Key extends Comparable {
    *
    * @param {Integer} octave
    */
-  setOctave (octave) {
-    if (typeof octave !== 'number') {
-      throw new RuntimeError('BadArguments', 'invalid key octave');
-    }
+  setOctave(octave) {
+    invariant(octave !== undefined, 'Invalid octave');
     this.octave = octave;
   }
 
@@ -107,7 +73,7 @@ class Key extends Comparable {
    *
    * @return {String} string representation
    */
-  toString () {
+  toString() {
     return this.keyName.toString() + this.octave.toString();
   }
 
@@ -116,14 +82,13 @@ class Key extends Comparable {
    * @param {jscore.model.bar.note.Key} key to compare with
    * @return {Integer} result of comparsion
    */
-  compareTo (key) {
+  compareTo(key) {
     let compare = super.compareTo(this.octave, key.getOctave());
 
     if (compare === 0) {
       compare = super.compareTo(this.keyName.value, key.getKeyName().value);
     }
+
     return compare;
   };
 }
-
-module.exports = Key;
