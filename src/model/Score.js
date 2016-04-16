@@ -22,6 +22,10 @@ class Score {
       staff.draw(ctx);
     });
   }
+
+  render() {
+    this.draw();
+  }
   /**
    *
    * @param {String} cleff
@@ -46,6 +50,17 @@ class Score {
     return this._staffList[idx];
   }
 
+  setData(data) {
+    let score = this;
+    data.staffs.forEach(currentStaff => {
+      let staff = score.createStaff(currentStaff.clef);
+
+      currentStaff.bars.forEach(b => {
+        staff.createBar(b.timeSignature);
+        b.notes.forEach(note => staff.addNote(note));
+      })
+    });
+  }
   static Clef = Clef;
   static Staff = Staff;
 }

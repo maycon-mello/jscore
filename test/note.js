@@ -18,14 +18,13 @@ describe('Note', function() {
     let note = bar.notes[0];
     let n = SCORE.staffs[0].bars[0].notes[0];
 
-    // assert.equal(note.beam, null);
-    // assert.equal(note.steam, null);
-
     bar.notes.forEach((barNote, idx) => {
-      // let n = SCORE.staffs[0].bars[0].notes[idx];
-      // assert.equal(note.heads.length, n.keys.length);
-      // assert.equal(note.duration, n.duration);
-      // assert.equal(note.orientation, n.orientation);
+      let n = SCORE.staffs[0].bars[0].notes[idx];
+      assert.equal(barNote.heads.length, n.keys.length);
+      assert.equal(barNote.duration, n.duration);
+      assert.equal(barNote.orientation, n.orientation);
+      assert.equal(note.beam, null);
+      assert.equal(note.steam === undefined, note.duration < 2);
     });
   });
 

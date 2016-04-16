@@ -23,7 +23,7 @@ describe('Bar', function() {
   // Testing Bar instance
   it('properties', () => {
     let barList = staff.getBars();
-    assert.equal(barList.length, 1);
+    assert.equal(barList.length, staff.getBars().length);
     assert.equal(barList[0].getTimeSignature(), '4/4');
   });
 

@@ -4,13 +4,15 @@
 
 import Bar from './Bar';
 import TrebleClef from './clef/TrebleClef';
+import Tickable from './Tickable';
 
-class Staff {
+class Staff extends Tickable {
 
   /**
    * @param {String} clefName
    */
   constructor (clefName) {
+    super();
     //this.clef = TrebleClef.create(clefName);
     /**
      * @private
@@ -27,17 +29,38 @@ class Staff {
    * @param {RenderingContext} ctx
    */
   draw (ctx) {
-    var startX = ctx.x;
+    let startX = ctx.x;
+    let staff = this;
     this._clef.draw(ctx);
     // Define the context clef
     // this clef contains note positions
     ctx.clef = this._clef;
-
+    this.drawLine(ctx);
+    ctx.drawLine(ctx);
     this._barList.forEach(function (bar) {
-        ctx.x = startX;
         //ctx.y += this.getHeight();
+        ctx.x += 10;
         bar.draw(ctx);
+        staff.drawLine(ctx);
     });
+
+    let y = ctx.y;
+    //
+    for(let i = 0; i < 5; i++){
+      console.log(startX, y, ctx.x, y);
+      ctx.canvas.beginPath();
+      ctx.canvas.moveTo(startX, y);
+      ctx.canvas.lineTo(ctx.x, y);
+      ctx.canvas.stroke();
+      ctx.canvas.closePath();
+      y += ctx.props.NOTE_HEAD_HEIGHT;
+    }
+
+    this.afterDraw(ctx);
+  }
+
+  drawLine(ctx) {
+    ctx.drawLine(ctx.x, ctx.y, ctx.x, ctx.props.STAFF_HEIGHT);
   }
   /**
    *

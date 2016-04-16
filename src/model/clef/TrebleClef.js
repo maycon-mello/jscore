@@ -1,4 +1,3 @@
-import RendererContext from '../../RendererContext';
 import Tickable from '../Tickable';
 import Key from '../bar/note/Key';
 
@@ -15,13 +14,16 @@ class TrebleClef extends Tickable {
              F   -3
       ------ E   -4
    */
-    static middle = new Key('B2');
+    constructor() {
+      super();
+      this.middle = new Key('B2');
+    }
 
-    static toString() {
+    toString() {
       return 'treble';
     }
 
-    static getKeyLocation (k) {
+    getKeyLocation (k) {
         // int middleKey = middle.getKeyName().ordinal();
         // int currentKey = k.getKeyName().ordinal();
         //
@@ -30,9 +32,10 @@ class TrebleClef extends Tickable {
         // int location = (currentOctave - middleOctave) * 7;
         //
         // return location + (currentKey - middleKey);
+        return -3;
     }
 
-    static draw (ctx) {
+    draw (ctx) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

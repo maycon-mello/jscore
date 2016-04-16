@@ -1,22 +1,22 @@
-/**
- * @package jscore.model.bar;
- */
 import invariant from 'invariant';
-import RendererContext from '../../RendererContext';
-import RuntimeError from '../../RuntimeError';
 import Tickable from '../Tickable';
 import DrawLog from '../../util/DrawLog';
 import Collections from '../../util/Collections';
 import Steam from './note/Steam';
 import NoteUtil from './NoteUtil';
-
+import {
+  NoteOrientation,
+  NoteDuration,
+  NoteModifier
+} from '../../constants/Note';
 
 class Note extends Tickable {
+
   /**
    *
    * @param {String[]} keys ['c','e','f','b']
-   * @param {Note.Duration} duration note duration
-   * @param {Note.Orientation} orientation 1 or -1
+   * @param {Number} duration note duration
+   * @param {Number} orientation 1 or -1
    * @param {String[]} modifiers ['dot','accent','flam']
    */
   constructor ({ keys, duration, orientation, modifiers }) {
@@ -25,121 +25,82 @@ class Note extends Tickable {
     invariant(keys, 'Required parameter `{keys}`');
     invariant(duration, 'Required parameter `{duration}`');
 
-    /**
-     *
-     * @private
-     * @property {jscore.model.bar.note.Steam}
-     */
     this.steam = null;
-    /**
-     *
-     * @private
-     * @property {jscore.model.glyph.FlagGlyph}
-     */
     this.flagGlyph = null;
-    /**
-     *
-     * @private
-     * @property {jscore.model.bar.note.Beam}
-     */
     this.beam = null;
-    /**
-     *
-     * @private
-     * @property {Integer}
-     */
     this.duration = 0;
-    /**
-     *
-     * @private
-     * @property {Integer}
-     */
     this.orientation = 1;
-
     this.setDuration(duration || 0);
-    this.setOrientation(orientation || Note.Orientation.UP);
-    /**
-     *
-     * @private
-     * @property {jscore.model.bar.note.Head[]}
-     */
+    this.setOrientation(orientation || NoteOrientation.UP);
     this.heads = NoteUtil.createHeads(keys, this.duration);
-    //
+
+    // TODO: use ES6 sort
     Collections.sort(this.heads);
-    //create a steam
-    if (this.duration > Note.Duration.WHOLE) {
-      this.steam = new Steam();
+
+    // create a steam
+    if (this.duration > NoteDuration.WHOLE) {
+      this.steam = new Steam(this);
     }
+
     //create a flag
-    if (!this.isRest() && this.duration >= Note.Duration.EIGHT) {
+    if (!this.isRest() && this.duration >= NoteDuration.EIGHT) {
       this.flagGlyph = jscore.glyph.Flag;
     }
   }
-  /**
-   * Enum for note orientation
-   * @readonly
-   * @static
-   * @enum {Number}
-   */
-  static get Orientation () {
-    return {
-      UP: 1,
-      DOWN: -1
-    }
-  }
-  /**
-   * Enum for note duration
-   * @readonly
-   * @static
-   * @enum {Number}
-   */
-  static get Duration () {
-    return {
-      WHOLE: 1,
-      HALF: 2,
-      QUARTER: 4,
-      EIGHT: 8,
-      SIXTEENTH: 16,
-      THIRTY: 32
-    }
-  }
-  //
+
   draw (ctx) {
+    this.beforeDraw(ctx);
     if (this.isRest()) {
       NoteUtil.log.rest(this, ctx);
       return;
     }
+
     NoteUtil.log.note(this, ctx);
-    //
+
     this.heads.forEach(function (head) {
       //After draw the head the x and y values will be updated
       head.draw(ctx);
     });
+
     //Draw steam
     if (this.steam != null) {
       //After draw the steam the x, y and height values will be updated
-      this.steam.draw(ctx);
+      this.steam.draw(ctx, this);
     }
+
     //Draw the flag
     if (this.beam === null && this.flagGlyph != null) {
       this.flagGlyph.paint(ctx, this.steam.p1.x, this.steam.p1.y);
     }
+
+    this.updateWidth(ctx);
+
     DrawLog.add("").removeLevel();
+    this.afterDraw(ctx);
   }
+
   /**
-   * @public
-   * @return jscore.model.bar.note.Head[]} heads
+   *
+   * @return {Head[]} heads
    */
   getHeads () {
     return this.heads;
   }
+
+  updateWidth(ctx) {
+    //let width = ctx.getScaledValue(ctx.props.NOTE_HEAD_WIDTH + ctx.props.NOTE_RIGHT_PADDING);
+    let width = ctx.props.BAR_WIDTH / this.duration;
+    this.width = ctx.getScaledValue(width);
+  }
+
   /**
    * @public
-   * @param {jscore.model.bar.note.Head[]} heads
+   * @param {Head[]} heads
    */
   setHeads (heads) {
     this.heads = heads;
   }
+
   /**
    * @public
    * @return {Integer} duration
@@ -147,46 +108,48 @@ class Note extends Tickable {
   getDuration () {
     return this.duration;
   }
+
   /**
    * @public
    * @param {Integer} duration
    */
   setDuration (duration) {
-    if (typeof duration !== 'number') {
-      throw new RuntimeError('BadArguments', 'invalid note duration');
-    }
-    //
+    invariant(duration, 'Invalid note duration');
     this.duration = duration;
   }
+
   /**
-   * @public
+   *
    * @return {Integer} width
    */
   getWidth () {
-    return 400 / this.duration;
+    return this.width;
   }
+
   /**
-   * @public
-   * @return {jscore.model.bar.note.Key} key
+   *
+   * @return {Key} key
    */
   getMaxKey () {
     return this.heads[this.heads.length - 1].getKey();
   }
+
   /**
-   * @public
-   * @return {jscore.model.bar.note.Key} key
+   *
+   * @return {Key} key
    */
   getMinKey () {
     return this.heads[0].getKey();
   }
-  //
+
   /**
    *
-   * @param {jscore.model.bar.note.Beam} beam
+   * @param {Beam} beam
    */
   setBeam (beam) {
     this.beam = beam;
   }
+
   /**
    *
    * @return {Boolean}
@@ -194,6 +157,7 @@ class Note extends Tickable {
   isRest () {
     return this.heads.length === 0;
   }
+
   /**
    *
    * @return {Boolean}
@@ -201,6 +165,7 @@ class Note extends Tickable {
   hasFlag () {
     return this.flagGlyph != null;
   }
+
   /**
    *
    * @return {Integer}
@@ -208,19 +173,23 @@ class Note extends Tickable {
   getOrientation () {
     return this.orientation;
   }
+
   /**
    *
    * @param {Integer} orientation
    */
   setOrientation (orientation) {
-    if (orientation !== Note.Orientation.DOWN && orientation !== Note.Orientation.UP) {
-      throw new RuntimeError('BadArguments', 'invalid note orientation');
-    }
+    // invariant(
+    //   orientation !== NoteOrientation.DOWN &&
+    //   orientation !== NoteOrientation.UP,
+    // 'invalid note orientation');
+
     this.orientation = orientation;
   }
+
   /**
    *
-   * @return {jscore.model.bar.note.Steam}
+   * @return {Steam}
    */
   getSteam () {
     return this.steam;
@@ -228,4 +197,4 @@ class Note extends Tickable {
 
 }
 
-module.exports = Note;
+export default Note;

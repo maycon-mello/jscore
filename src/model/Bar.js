@@ -14,55 +14,34 @@ class Bar extends Tickable {
 
     invariant(timeSignature, 'Required parameter `{timeSignature}`');
 
-    /**
-     *
-     * @private
-     * @property {String} timeSignature
-     */
     this.timeSignature = timeSignature;
-
-    /**
-     *
-     * @private
-     * @property {Note[]} beats
-     */
     this.notes = [];
-    /**
-     *
-     * @private
-     * @property {Boolean} newLine
-     */
     this.newLine = false;
   }
 
   draw (ctx) {
-    var startX, beatCount, y, headHeight, i;
+    this.beforeDraw(ctx);
+    let startX;
+    let beatCount;
+    let headHeight;
     //Calculate beams and bar height
     //BarFormatter.format(this);
     //
     startX = ctx.x;
-    DrawLog.add("bar").addLevel();
     //draw vertical line
     //ctx.drawLine(c.x, c.getTopPosition(), c.x, c.getBottomPosition();
     //
     beatCount = 1;
     this.notes.forEach(function (note) {
-      //DrawLog.add(String.format("beat " + beatCount)).addLevel();
       note.draw(ctx);
-      DrawLog.removeLevel();
       //beatCount++;
+      ctx.x += note.getWidth();
     });
     //draw vertical line
     //ctx.drawLine(c.x, c.y, c.x, c.y + c.getStaffHeight();
     //draw horizontal lines
-    y = ctx.y;
-    headHeight = ctx.getProperty(ctx.properties.NOTE_HEAD_HEIGHT);
-    //
-    for(i = 0; i < 5; i++){
-      //ctx.drawLine(startX, y, c.x, y);
-      y += headHeight;
-    }
     DrawLog.removeLevel();
+    this.afterDraw(ctx);
   }
   /**
    *

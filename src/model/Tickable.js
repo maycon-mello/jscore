@@ -30,7 +30,7 @@ class Tickable extends Comparable {
    */
   getPadding () {
     return this.padding;
-  };
+  }
 
   /**
    *
@@ -38,15 +38,15 @@ class Tickable extends Comparable {
    */
   setPadding (padding) {
     this.padding = padding;
-  };
+  }
 
   /**
    *
    * @returns {Integer} width
    */
   getWidth () {
-    return this.glyph.getWidth();
-  };
+    return this.glyph.width;
+  }
 
   /**
    *
@@ -54,17 +54,29 @@ class Tickable extends Comparable {
    */
   getHeight () {
     return height;
-  };
+  }
 
   //public int
   getX () {
     return this.x;
-  };
+  }
 
   //public int
   getY () {
     return this.y;
-  };
+  }
+
+  afterDraw(ctx) {
+    console.log("Drawing element: ", this);
+  }
+
+  beforeDraw(ctx) {
+    let canvasContext = ctx.canvas;
+    canvasContext.save();
+    canvasContext.fillStyle = 'red';
+    canvasContext.fillRect(ctx.x, ctx.y, 5, 5);
+    canvasContext.restore();
+  }
 
   /**
    *

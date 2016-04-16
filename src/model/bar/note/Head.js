@@ -1,54 +1,54 @@
 import RendererContext from '../../../RendererContext';
 import DrawLog from '../../../util/DrawLog';
 import Tickable from '../../Tickable';
-import Glyph from '../../../glyph/Glyph';
+import getHeadGlyph from './getHeadGlyph';
 
 class Head extends Tickable {
+
   /**
-   * @param {jscore.model.bar.note.Key} key
-   * @param {Integer} duration
+   * @param {Key} key
+   * @param {Number} duration
    */
-  constructor (key, duration) {
+  constructor(key, duration) {
     super();
+
     this.key = key;
-    switch (duration) {
-      case 1: {
-        this.glyph = new Glyph(Glyph.NOTE_HEAD.WHOLE);
-      }
-      case 2: {
-        this.glyph = new Glyph(Glyph.NOTE_HEAD.HALF);
-      }
-      default: {
-        this.glyph = new Glyph(Glyph.NOTE_HEAD.DEFAULT);
-      }
-    }
+    this.duration = duration;
+    this.glyph = getHeadGlyph(duration);
   }
-  draw (ctx) {
-    let y = ctx.y - ctx.getProperty(ctx.properties.NOTE_HEAD_HEIGHT) * ctx.clef.getKeyLocation(this.key);
+
+  draw(ctx) {
+    let headHeight = ctx.props.NOTE_HEAD_HEIGHT;
+    let keyLocation = ctx.clef.getKeyLocation(this.key);
+    let y = ctx.y - headHeight * keyLocation;
+
     this.y = y;
     this.x = ctx.x;
+
     DrawLog.add('head(key: ' + this.key.toString() + ')').addLevel();
-    //
-    this.glyph.draw(ctx, ctx.x, y);
-    //
+
+    this.glyph.render({ ctx, x: ctx.x, y});
+
     DrawLog.removeLevel();
   }
+
   /**
    *
    * @return {jscore.model.bar.note.Key} key
    */
-  getKey () {
+  getKey() {
     return this.key;
   }
 
   /**
    *
-   * @param {jscore.model.bar.note.Head} h
+   * @param {Head} head
    * @return {Number} compare result
    */
-  compareTo (h) {
-    return this.getKey().compareTo(h.getKey());
+  compareTo(head) {
+    return this.getKey().compareTo(head.getKey());
   }
+
 }
 
-module.exports = Head;
+export default Head;

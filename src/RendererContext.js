@@ -1,107 +1,88 @@
+import { getProps } from './constants/RendererContextProps';
+import Observable from './util/Observable';
+import CanvasRenderingContext from './CanvasRenderingContext';
 /**
  * @constructor
  * @param {Object} args
  * @param {HTMLCanvasElement} args.canvasElement
  */
-class RendererContext {
+class RendererContext extends Observable {
 
-  constructor (args) {
+  constructor ({width, height, canvasElement}) {
+    super();
 
-    this.width = args.width;
-    this.height = args.height;
-    //
-    /**
-     * current y position
-     * @member {Integer}
-     */
+    this.width = width;
+    this.height = height;
     this.x = 0;
-    /**
-     * current x position
-     * @member {Integer}
-     */
     this.y = 0;
-    /**
-     * Start position x
-     * @member {Integer}
-     */
     this.startX = 0;
-    /**
-     * Start position y
-     * @member {Integer}
-     */
     this.startY = 0;
-    /**
-     * Current staff bar count
-     * @member {Integer}
-     */
     this.staffBarCount = 0;
-    /**
-     * Canvas context
-     * @member {CanvasRenderingContext2D}
-     */
-    this.canvas = args.canvasElement.getContext("2d");
-    /**
-     * Scale
-     * @member {Float}
-     */
-    this.scale = 1;
-    /**
-     * @public
-     * @member {Object[]}
-     */
-    this.observers = [];
-    //
-    this.properties = {
-      NOTE_HEAD_HEIGHT: 10,
-      NOTE_HEAD_WIDTH: 15,
-      STEAM_HEIGHT: 40
-    };
+    this.cavnasElement = canvasElement;
+    // TODO: change this attribute name
+    this.canvas = new CanvasRenderingContext(canvasElement);
+    this.setScale(1);
   }
 
-  /**
-   * Returns a scaled pripertie value
-   * @param {String} propertie
-   * @return {Integer} propertie value
-   */
-  getProperty (propertie) {
-    var value = this.properties[propertie];
-    return parseInt(value * this.scale);
+  updateProps() {
+    this.props = getProps(this.scale);
   }
+
+  // TODO: remove it
+  getProperty(propertie) {
+    return this.props[propertie];
+  }
+
+  drawLine(iX, iY, fX, fY) {
+    let ctx = this.canvas;
+    ctx.beginPath();
+    ctx.moveTo(iX, iY);
+    ctx.lineTo(fX, fY);
+    ctx.stroke();
+    ctx.closePath();
+  }
+
   /**
    * Set score scale (zoom+-), it affects in how big will be the score graphic elements
    * @param {Double} scale
    */
-  setScale (scale) {
+  setScale(scale) {
     this.scale = scale;
+    this.updateProps();
   }
-  /**
-   * Returns staff height
-   * @return {Integer} staff height
-   */
-  getStaffHeight () {
-    return this.getProperty('NOTE_HEAD_HEIGHT') * 4;
-  }
+
   /**
    * Returns top position
    * @return {Integer} top y position
    */
-  getTopPosition () {
-    return this.y - (this.getStaffHeight() / 2);
+  getTopPosition() {
+    return this.y - (this.props.STAFF_HEIGHT / 2);
   }
+
   /**
    * Returns staff height
    * @return {Integer} bottom y position
    */
-  getBottomPosition () {
-    return this.y + (this.getStaffHeight() / 2);
+  getBottomPosition() {
+    return this.y + (this.props.STAFF_HEIGHT / 2);
   }
+
   /**
    *
    * @param {Integer} value
    * @return {Integer} scaled value
    */
-  getScaledValue (value) {
+  getScaledValue(value) {
     return parseInt(this.scale * value);
+  }
+
+  /**
+   *
+   * @param {Integer} value
+   * @return {Integer} scaled value
+   */
+  getScaled(value) {
+    return getScaleValue(value);
   }
 
 }

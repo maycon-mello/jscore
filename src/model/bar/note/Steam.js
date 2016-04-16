@@ -41,7 +41,7 @@ class Steam extends Tickable {
    * @param {RendererContext} ctx
    */
   draw (ctx, note) {
-    let heads = this.note.getHeads();
+    let heads = note.getHeads();
     /**
      *@type {Head}
      */
@@ -56,11 +56,11 @@ class Steam extends Tickable {
 
     if (this.note.getOrientation() > 0) {
         this.p0.y = minHead.getY();
-        this.p1.y = maxHead.getY() - ctx.getProperty(RendererContext.Property.STEAM_HEIGHT);
+        this.p1.y = maxHead.getY() - ctx.props.STEAM_HEIGHT;
         //this.height = minHead.getY() - maxHead.getY() + ctx.getProperty(RendererContext.Property.STEAM_HEIGHT);
     } else {
         this.p0.y = maxHead.getY();
-        this.p1.y = minHead.getY() + ctx.getProperty(RendererContext.Property.STEAM_HEIGHT);
+        this.p1.y = minHead.getY() + ctx.props.STEAM_HEIGHT;
         //this.height = minHead.getY() - maxHead.getY() + ctx.getProperty(RendererContext.Property.STEAM_HEIGHT);
     }
     //this.glyph.paint(c.canvas, c.x, c.y);
