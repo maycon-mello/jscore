@@ -1,27 +1,21 @@
 import Comparable from '../util/Comparable'
-/**
- * @package jscore.model
- */
 
-class Tickable extends Comparable {
+/**
+ * Drawable is any element that can be rendered on the screen
+ *
+ */
+class Drawable extends Comparable {
 
   constructor () {
     super();
-    //protected Padding
-    this.padding = {};
-    //protected int
-    this.width = 0;
-    //protected int
-    this.height = 0;
-    //protected List<Modifier>
-    this.modifiers = [];
-    //protected Glyph
-    this.glyph = null;
-    //protected int
-    this.y = 0;
-    //protected int
-    this.x = 0;
 
+    this.padding = {};
+    this.width = 0;
+    this.height = 0;
+    this.modifiers = [];
+    this.glyph = null;
+    this.y = 0;
+    this.x = 0;
   }
 
   /**
@@ -48,20 +42,16 @@ class Tickable extends Comparable {
     return this.glyph.width;
   }
 
-  /**
-   *
-   *
-   */
   getHeight () {
     return height;
   }
 
-  //public int
+
   getX () {
     return this.x;
   }
 
-  //public int
+
   getY () {
     return this.y;
   }
@@ -80,11 +70,11 @@ class Tickable extends Comparable {
 
   /**
    *
-   * @param {jscore.model.bar.note.Key} ctx
+   * @param {RendererContext} ctx
    */
   draw (ctx) {
 
   };
 }
 
-export default Tickable;
+export default Drawable;

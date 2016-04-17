@@ -50,7 +50,7 @@ const staff1 = {
         // Note
         {
           keys: ['c1', 'e1', 'f1'],
-          duration: NoteDuration.QUARTER,
+          duration: NoteDuration.EIGHT,
           orientation: 1,
           modifiers: [],
         },

@@ -1,10 +1,6 @@
-/**
- * @package jscore.model.bar.note.modifiers
- */
-
 import DrawLog from '../../../../util/DrawLog';
 
-class Dot extends Tickable {
+class Dot extends Drawable {
   /**
    *
    * @param {Integer} type can be SINGLE_DOT(1) or DOUBLE_DOT(2)

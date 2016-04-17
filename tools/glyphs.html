@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      window.module = { exports: {} };
+    </script>
+    <script type="text/javascript" src="../src/font/gonville.js"></script>
+    <script type="text/javascript">
+      function renderGlyph(ctx, glyph, x, y, scale) {
+
+        var outline = glyph.outline;
+        var outlineLength = outline.length;
+
+        ctx.beginPath();
+
+        ctx.moveTo(x, y);
+
+        for (var i = 0; i < outlineLength; ) {
+          var action = outline[i++];
+
+          switch(action) {
+            case 'm':
+              ctx.moveTo(x + outline[i++] * scale,
+                         y + outline[i++] * -scale);
+              break;
+            case 'l':
+              ctx.lineTo(x + outline[i++] * scale,
+                         y + outline[i++] * -scale);
+              break;
+
+            case 'q':
+              var cpx = x + outline[i++] * scale;
+              var cpy = y + outline[i++] * -scale;
+
+              ctx.quadraticCurveTo(
+                  x + outline[i++] * scale,
+                  y + outline[i++] * -scale, cpx, cpy);
+              break;
+
+            case 'b':
+              var xx = x + outline[i++] * scale;
+              var yy = y + outline[i++] * -scale;
+
+              ctx.bezierCurveTo(
+                  x + outline[i++] * scale, y + outline[i++] * -scale,
+                  x + outline[i++] * scale, y + outline[i++] * -scale,
+                  xx, yy);
+              break;
+          }
+        }
+
+        ctx.fill();
+      }
+    </script>
+  </head>
+  <body>
+    <canvas width="800" height="2000"></canvas>
+    <script type="text/javascript">
+      var canvas = document.getElementsByTagName('canvas')[0];
+      var context = canvas.getContext('2d');
+      var font = window.module.exports;
+      var canvasWidth = canvas.width;
+      var x = 0;
+      var y = 50;
+      var lineHeight = 100;
+
+      for(var code in font.glyphs) {
+        if (x > canvasWidth) {
+          x = 0;
+          y += lineHeight;
+        }
+        var glyph = font.glyphs[code];
+        if (glyph.o) {
+          glyph.outline = glyph.o.split(' ');
+          renderGlyph(context, glyph, x, y, 0.02);
+          // Glyph code text
+          context.fillText(code, x, y + lineHeight / 2);
+          x += 30;
+        }
+      }
+    </script>
+  </body>
+</html>

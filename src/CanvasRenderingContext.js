@@ -12,12 +12,14 @@ let fakeContext = {
   fillRect: () => {},
 };
 
-const get2DContext = (element) => {
+
+/**
+ *
+ * @param (HTMLCanvasElement) element
+ */
+export default (element) => {
   if (element.getContext) {
     return element.getContext('2d');
   }
   return fakeContext;
-}
-
-
-export default get2DContext;
+};

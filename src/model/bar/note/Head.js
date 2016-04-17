@@ -1,9 +1,7 @@
-import RendererContext from '../../../RendererContext';
-import DrawLog from '../../../util/DrawLog';
-import Tickable from '../../Tickable';
-import getHeadGlyph from './getHeadGlyph';
+import Drawable from '../../Drawable';
+import Glyph from '../../../glyph/Glyph';
 
-class Head extends Tickable {
+class Head extends Drawable {
 
   /**
    * @param {Key} key
@@ -14,7 +12,7 @@ class Head extends Tickable {
 
     this.key = key;
     this.duration = duration;
-    this.glyph = getHeadGlyph(duration);
+    this.glyph = Head._createGlyph(duration);
   }
 
   draw(ctx) {
@@ -24,17 +22,12 @@ class Head extends Tickable {
 
     this.y = y;
     this.x = ctx.x;
-
-    DrawLog.add('head(key: ' + this.key.toString() + ')').addLevel();
-
-    this.glyph.render({ ctx, x: ctx.x, y});
-
-    DrawLog.removeLevel();
+    this.glyph.render(ctx, ctx.x, y);
   }
 
   /**
    *
-   * @return {jscore.model.bar.note.Key} key
+   * @return {Key} key
    */
   getKey() {
     return this.key;
@@ -47,6 +40,20 @@ class Head extends Tickable {
    */
   compareTo(head) {
     return this.getKey().compareTo(head.getKey());
+  }
+
+  static _createGlyph(duration) {
+    let name = '';
+
+    if (duration === 1) {
+      name = 'NOTE_HEAD_WHOLE';
+    } else if (duration === 2) {
+      name = 'NOTE_HEAD_HALF';
+    } else {
+      name = 'NOTE_HEAD_DEFAULT';
+    }
+
+    return Glyph.create(name);
   }
 
 }

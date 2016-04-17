@@ -1,6 +1,3 @@
-/**
- * @package jscore.model.bar
- */
 
 import Beam from './note/Beam';
 
@@ -10,7 +7,7 @@ class Beat {
     /**
      *
      * @private
-     * @property {jscore.model.bar.Note[]}
+     * @property {Note[]}
      */
     this.notes = [];
     /**
@@ -22,14 +19,14 @@ class Beat {
     /**
      *
      * @private
-     * @property {jscore.model.bar.note.Beam}
+     * @property {Beam}
      */
     this.beam = null;
   }
 
   /**
    *
-   * @param {jscore.model.bar.Note} n
+   * @param {Note} n
    */
   addNote (n) {
       this.duration += 4 / parseFloat(n.getDuration());
@@ -38,7 +35,7 @@ class Beat {
   };
   /**
    * Draw beat notes
-   * @param ctx
+   * @param {RendererContext}
    */
   draw  (ctx) {
       this.notes.forEach(function(note) {
@@ -88,4 +85,4 @@ class Beat {
   };
 }
 
-exports = Beat;
+export default Beat;

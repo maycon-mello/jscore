@@ -3,7 +3,7 @@ import invariant from 'invariant';
 import Score from './model/Score';
 import RendererContext from './RendererContext';
 import Viewport from './ui/Viewport';
-import Tickable from './model/Tickable';
+import Drawable from './model/Drawable';
 
 /**
  *
@@ -14,6 +14,8 @@ function createScore ({container}) {
   invariant(container, 'Required parameter `{container}`');
 
   let canvasElement = document.createElement('canvas');
+      canvasElement.setAttribute('width', '800');
+      canvasElement.style.border = '1px solid';
 
   let ctx = new RendererContext({
     container,

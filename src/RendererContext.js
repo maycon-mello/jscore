@@ -1,13 +1,15 @@
 import { getProps } from './constants/RendererContextProps';
 import Observable from './util/Observable';
 import CanvasRenderingContext from './CanvasRenderingContext';
-/**
- * @constructor
- * @param {Object} args
- * @param {HTMLCanvasElement} args.canvasElement
- */
+
 class RendererContext extends Observable {
 
+  /**
+   * @constructor
+   * @param {Number} width
+   * @param {Number} height
+   * @param {HTMLCanvasElement} canvasElement
+   */
   constructor ({width, height, canvasElement}) {
     super();
 
@@ -22,10 +24,6 @@ class RendererContext extends Observable {
     // TODO: change this attribute name
     this.canvas = new CanvasRenderingContext(canvasElement);
     this.setScale(1);
-  }
-
-  updateProps() {
-    this.props = getProps(this.scale);
   }
 
   // TODO: remove it
@@ -43,12 +41,12 @@ class RendererContext extends Observable {
   }
 
   /**
-   * Set score scale (zoom+-), it affects in how big will be the score graphic elements
+   * Set score scale
    * @param {Double} scale
    */
   setScale(scale) {
     this.scale = scale;
-    this.updateProps();
+    this.props = getProps(this.scale);
   }
 
   /**
@@ -83,6 +81,14 @@ class RendererContext extends Observable {
    */
   getScaled(value) {
     return getScaleValue(value);
+  }
+
+  addXPadding(multiplier = 1) {
+    this.x += this.props.PADDING * multiplier;
+  }
+
+  addX(value) {
+    this.x += this.getScaledValue(value);
   }
 
 }

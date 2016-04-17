@@ -1,5 +1,5 @@
 import invariant from 'invariant';
-import Tickable from '../Tickable';
+import Drawable from '../Drawable';
 import DrawLog from '../../util/DrawLog';
 import Collections from '../../util/Collections';
 import Steam from './note/Steam';
@@ -10,7 +10,11 @@ import {
   NoteModifier
 } from '../../constants/Note';
 
-class Note extends Tickable {
+import Glyph from '../../glyph/Glyph';
+
+
+
+class Note extends Drawable {
 
   /**
    *
@@ -25,57 +29,52 @@ class Note extends Tickable {
     invariant(keys, 'Required parameter `{keys}`');
     invariant(duration, 'Required parameter `{duration}`');
 
-    this.steam = null;
-    this.flagGlyph = null;
-    this.beam = null;
-    this.duration = 0;
-    this.orientation = 1;
+    this._steam = null;
+    this._flagGlyph = null;
+    this._beam = null;
+    this._duration = 0;
+    this._orientation = 1;
     this.setDuration(duration || 0);
     this.setOrientation(orientation || NoteOrientation.UP);
-    this.heads = NoteUtil.createHeads(keys, this.duration);
+    this._heads = NoteUtil.createHeads(keys, this._duration);
 
     // TODO: use ES6 sort
-    Collections.sort(this.heads);
+    Collections.sort(this._heads);
 
     // create a steam
-    if (this.duration > NoteDuration.WHOLE) {
-      this.steam = new Steam(this);
+    if (this._duration > NoteDuration.WHOLE) {
+      this._steam = new Steam(this);
     }
 
     //create a flag
-    if (!this.isRest() && this.duration >= NoteDuration.EIGHT) {
-      this.flagGlyph = jscore.glyph.Flag;
+    if (!this.isRest() && this._duration >= NoteDuration.EIGHT) {
+      //this._flagGlyph = null;
     }
   }
 
   draw (ctx) {
     this.beforeDraw(ctx);
     if (this.isRest()) {
-      NoteUtil.log.rest(this, ctx);
       return;
     }
 
-    NoteUtil.log.note(this, ctx);
-
-    this.heads.forEach(function (head) {
+    this._heads.forEach(function (head) {
       //After draw the head the x and y values will be updated
       head.draw(ctx);
     });
 
     //Draw steam
-    if (this.steam != null) {
+    if (this._steam != null) {
       //After draw the steam the x, y and height values will be updated
-      this.steam.draw(ctx, this);
+      this._steam.draw(ctx, this);
     }
 
     //Draw the flag
-    if (this.beam === null && this.flagGlyph != null) {
-      this.flagGlyph.paint(ctx, this.steam.p1.x, this.steam.p1.y);
+    if (this._beam === null && this._flagGlyph != null) {
+      this._flagGlyph.paint(ctx, this._steam.p1.x, this._steam.p1.y);
     }
 
-    this.updateWidth(ctx);
-
-    DrawLog.add("").removeLevel();
+    ctx.x += ctx.props.BAR_WIDTH / this._duration;
     this.afterDraw(ctx);
   }
 
@@ -84,13 +83,12 @@ class Note extends Tickable {
    * @return {Head[]} heads
    */
   getHeads () {
-    return this.heads;
+    return this._heads;
   }
 
   updateWidth(ctx) {
     //let width = ctx.getScaledValue(ctx.props.NOTE_HEAD_WIDTH + ctx.props.NOTE_RIGHT_PADDING);
-    let width = ctx.props.BAR_WIDTH / this.duration;
-    this.width = ctx.getScaledValue(width);
+    this.width = ctx.props.BAR_WIDTH / this._duration;
   }
 
   /**
@@ -98,7 +96,7 @@ class Note extends Tickable {
    * @param {Head[]} heads
    */
   setHeads (heads) {
-    this.heads = heads;
+    this._heads = heads;
   }
 
   /**
@@ -106,7 +104,7 @@ class Note extends Tickable {
    * @return {Integer} duration
    */
   getDuration () {
-    return this.duration;
+    return this._duration;
   }
 
   /**
@@ -115,7 +113,7 @@ class Note extends Tickable {
    */
   setDuration (duration) {
     invariant(duration, 'Invalid note duration');
-    this.duration = duration;
+    this._duration = duration;
   }
 
   /**
@@ -131,7 +129,7 @@ class Note extends Tickable {
    * @return {Key} key
    */
   getMaxKey () {
-    return this.heads[this.heads.length - 1].getKey();
+    return this._heads[this._heads.length - 1].getKey();
   }
 
   /**
@@ -139,7 +137,7 @@ class Note extends Tickable {
    * @return {Key} key
    */
   getMinKey () {
-    return this.heads[0].getKey();
+    return this._heads[0].getKey();
   }
 
   /**
@@ -147,7 +145,7 @@ class Note extends Tickable {
    * @param {Beam} beam
    */
   setBeam (beam) {
-    this.beam = beam;
+    this._beam = beam;
   }
 
   /**
@@ -155,7 +153,7 @@ class Note extends Tickable {
    * @return {Boolean}
    */
   isRest () {
-    return this.heads.length === 0;
+    return this._heads.length === 0;
   }
 
   /**
@@ -163,7 +161,7 @@ class Note extends Tickable {
    * @return {Boolean}
    */
   hasFlag () {
-    return this.flagGlyph != null;
+    return this._flagGlyph != null;
   }
 
   /**
@@ -171,7 +169,7 @@ class Note extends Tickable {
    * @return {Integer}
    */
   getOrientation () {
-    return this.orientation;
+    return this._orientation;
   }
 
   /**
@@ -179,12 +177,7 @@ class Note extends Tickable {
    * @param {Integer} orientation
    */
   setOrientation (orientation) {
-    // invariant(
-    //   orientation !== NoteOrientation.DOWN &&
-    //   orientation !== NoteOrientation.UP,
-    // 'invalid note orientation');
-
-    this.orientation = orientation;
+    this._orientation = orientation;
   }
 
   /**
@@ -192,7 +185,18 @@ class Note extends Tickable {
    * @return {Steam}
    */
   getSteam () {
-    return this.steam;
+    return this._steam;
+  }
+
+  getSteamCount() {
+    if (duration === 4) {
+      return 1;
+    }
+    return this._duration
+  }
+
+  hasSteam(prevNote, nextNote) {
+
   }
 
 }

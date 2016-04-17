@@ -1,7 +1,7 @@
 import invariant from 'invariant';
 import DrawLog from '../../../util/DrawLog';
 import Comparable from '../../../util/Comparable';
-import Tickable from '../../Tickable';
+import Drawable from '../../Drawable';
 import KEY_NAME from '../../../constants/KeyName';
 
 
@@ -28,7 +28,7 @@ export default class Key extends Comparable {
 
   /**
    * Returns keyName object
-   * @return {jscore.model.bar.note.KeyName} keyName
+   * @return {KeyName} keyName
    */
   getKeyName() {
     return this.keyName;
@@ -36,7 +36,7 @@ export default class Key extends Comparable {
 
   /**
    *
-   * @param {jscore.model.bar.note.KeyName} keyName
+   * @param {String} keyName
    */
   setKeyName(key) {
     invariant(key, 'Invalid key');
@@ -79,7 +79,7 @@ export default class Key extends Comparable {
 
   /**
    *
-   * @param {jscore.model.bar.note.Key} key to compare with
+   * @param {Key} key to compare with
    * @return {Integer} result of comparsion
    */
   compareTo(key) {

@@ -1,25 +1,25 @@
 import RendererContext from '../../../RendererContext';
 import DrawLog from '../../../util/DrawLog';
-import Tickable from "../../Tickable";
+import Drawable from "../../Drawable";
 
-class Beam extends Tickable {
+class Beam extends Drawable {
 
   /**
    *
-   * @param {jscore.model.bar.Note[]} notes
+   * @param {Note[]} notes
    */
   constructor (notes) {
     super();
     /**
      *
      * @private
-     * @property {jscore.model.bar.Note[]}  notes
+     * @property {Note[]}  notes
      */
     this.notes = notes || [];
   }
   /**
    * @public
-   * @param {jscore.model.bar.Note} note
+   * @param {Note} note
    */
   addNote (note) {
     note.setBeam(this);
@@ -28,7 +28,7 @@ class Beam extends Tickable {
  /**
   *  Draws the beam graphics
    * @public
-   * @param {jscore.RendererContext} ctx
+   * @param {RendererContext} ctx
    */
   draw (ctx) {
     var steamI = this.notes[0].getSteam();

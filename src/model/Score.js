@@ -1,46 +1,51 @@
-/**
- * @package jscore.model
- */
 import invariant from 'invariant';
 import Staff from './Staff';
-import Clef from './clef/Clef';
 
 class Score {
+
+  /**
+   *
+   * @param {RendererContext} ctx
+   */
   constructor (ctx) {
-    this.ctx = ctx;
+    this._ctx = ctx;
     this._staffList = [];
 
     ctx.observers.push(this);
   }
+
   /*
    *
    * @param {RendererContext} ctx
    */
   draw () {
-    var ctx = this.ctx;
-    this._staffList.forEach(function (staff) {
+    var ctx = this._ctx;
+
+    // TODO: draw titles
+    ctx.y = 50;
+    this._staffList.forEach(staff => {
       staff.draw(ctx);
     });
+
   }
 
   render() {
     this.draw();
   }
+
   /**
    *
    * @param {String} cleff
    * @return {Staff} createdStaff
    */
   createStaff (clefName) {
-    let clef = Clef[clefName];
-    invariant(clef, 'Invalid clef');
+    invariant(clefName, 'Invalid clef');
 
-    let staff = new Staff(clef);
-
+    let staff = new Staff(clefName);
     this._staffList.push(staff);
-
     return staff;
   }
+
   /**
    *
    * @param {Number} idx - staff index
@@ -61,39 +66,6 @@ class Score {
       })
     });
   }
-  static Clef = Clef;
-  static Staff = Staff;
 }
 
 export default Score;
-
-
-/*
- <body>
- <div id="jScore1"></div>
- </body>
-
- var score = new jscore.create({
- container: document.getElementById("jScore1"),
- width: 600,
- height: 400
- });
- var staff1 = score.createStaff('trable');
- var staff2 = score.createStaff('bass');
- //
- staff1.addNote({
- heads: ['c2','e2','g2'],
- chord: 'CM7',
- modifiers: ['dot','accent','flam']
- duration: 4
- }).addRest({
- duration: 4
- });1;
- //
- staff2.addNote({
- heads: ['c#1','e1'],
- duration: 4
- }).addRest({
- duration: 4
- });
- */
