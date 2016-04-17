@@ -11,7 +11,7 @@ export default class Key extends Comparable {
    * @param {Integer} oct - octave number
    */
   constructor(keyName, oct) {
-    super();
+    super('Key');
 
     if (!oct) {
       oct = keyName.substring(keyName.length - 1, keyName.length);

@@ -1,7 +1,9 @@
 import invariant from 'invariant';
 import Drawable from './Drawable';
 import DrawLog from '../util/DrawLog';
+import Beat from './bar/Beat';
 import Note from './bar/Note';
+import TimeSignature from './bar/TimeSignature';
 
 class Bar extends Drawable {
 
@@ -13,29 +15,19 @@ class Bar extends Drawable {
     super();
 
     invariant(timeSignature, 'Required parameter `{timeSignature}`');
-
-    this._timeSignature = timeSignature;
-    this._notes = [];
-    this._steams = [];
+    this._timeSignature = new TimeSignature(timeSignature);
+    this._beats = [];
     this._newLine = false;
   }
 
   draw(ctx) {
     this.beforeDraw(ctx);
 
-    this._notes.forEach(note => {
-      note.draw(ctx);
+    this._beats.forEach(beat => {
+      beat.draw(ctx);
     });
 
-    this._steams.forEach(steam => {
-      steam.draw(ctx);
-    })
-
     this.afterDraw(ctx);
-  }
-
-  drawTimeSignature() {
-
   }
 
   /**
@@ -59,8 +51,14 @@ class Bar extends Drawable {
    * @param {Note} note
    */
   addNote(n) {
-    var note = new Note(n);
-    this._notes.push(note);
+    let note = new Note(n);
+    let beat = this._getCurrentBeat();
+
+    if (beat.isFull()) {
+      beat = this._createNewBeat();
+    }
+
+    beat.addNote(note);
     return note;
   }
 
@@ -79,16 +77,51 @@ class Bar extends Drawable {
   getWidth() {
     var width = 0;
 
-    this._notes.forEach(function (note) {
-        width += note.getWidth();
-    });
+    // this._notes.forEach(function (note) {
+    //     width += note.getWidth();
+    // });
 
     return width;
   }
 
-  _createSteams() {
-    this._steams = [];
-    // if note getDuration
+  _getCurrentBeat() {
+    if (this._beats.length === 0) {
+      this._createNewBeat();
+    }
+    // Return the last beat;
+    return this._beats[this._beats.length - 1];
+  }
+
+  _createNewBeat() {
+    let beat = new Beat(this._timeSignature);
+    this._beats.push(beat);
+    return beat;
+  }
+
+  getBeats() {
+    // const BEAT_DURATION = 4;
+    // let beatList = [];
+    // let beat = [];
+    // let duration = 0;
+    //
+    // this._notes.forEach((note, idx) => {
+    //   beat.push(note);
+    //
+    //   duration += BEAT_DURATION / note.getDuration();
+    //
+    //   // If beat is full, push it on list
+    //   if (duration >= 1) {
+    //     beatList.push(beat);
+    //     beat = [];
+    //     duration = 0;
+    //   }
+    // });
+
+    return this._beats;
+  }
+
+  getTimeSignature() {
+    return this._timeSignature;
   }
 
 }

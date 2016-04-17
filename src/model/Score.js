@@ -22,7 +22,6 @@ class Score {
     var ctx = this._ctx;
 
     // TODO: draw titles
-    ctx.y = 50;
     this._staffList.forEach(staff => {
       staff.draw(ctx);
     });
@@ -30,7 +29,10 @@ class Score {
   }
 
   render() {
+    let t1 = new Date();
     this.draw();
+    let time = new Date().getTime() - t1.getTime();
+    console.log('Render time: ' + time + 'ms');
   }
 
   /**

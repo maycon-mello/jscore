@@ -8,7 +8,7 @@ class Head extends Drawable {
    * @param {Number} duration
    */
   constructor(key, duration) {
-    super();
+    super('Head');
 
     this.key = key;
     this.duration = duration;

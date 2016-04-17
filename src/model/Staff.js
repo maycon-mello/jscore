@@ -22,8 +22,12 @@ class Staff extends Drawable {
   draw (ctx) {
     this.beforeDraw(ctx);
 
+    ctx.y += ctx.props.STAFF_HEIGHT;
     ctx.staffStartX = ctx.x;
-    let staff = this;
+    ctx.staff = this;
+
+    // Set y position to staff center
+    ctx.y += ctx.props.STAFF_HEIGHT / 2;
 
     this._drawVerticalLine(ctx);
 
@@ -32,11 +36,13 @@ class Staff extends Drawable {
     this._clef.draw(ctx);
 
     // Draw bars
-    this._barList.forEach(function (bar) {
+    this._barList.forEach(bar => {
       ctx.x += 10;
       bar.draw(ctx);
-      staff._drawVerticalLine(ctx);
+      ctx.staff._drawVerticalLine(ctx);
     });
+
+    ctx.y -= ctx.props.STAFF_HEIGHT / 2;
 
     this._drawHorizontalLines(ctx);
 
@@ -44,7 +50,8 @@ class Staff extends Drawable {
   }
 
   _drawVerticalLine(ctx) {
-    ctx.drawLine(ctx.x, ctx.y, ctx.x, ctx.y + ctx.props.STAFF_HEIGHT);
+    let staffHeight = ctx.props.STAFF_HEIGHT / 2;
+    ctx.drawLine(ctx.x, ctx.y - staffHeight, ctx.x, ctx.y + staffHeight);
   }
 
   _drawHorizontalLines(ctx) {

@@ -43,7 +43,25 @@ const staff1 = {
         // Note
         {
           keys: ['c1', 'e1', 'f1'],
-          duration: NoteDuration.QUARTER,
+          duration: NoteDuration.SIXTEENTH,
+          orientation: 1,
+          modifiers: [],
+        },
+        {
+          keys: ['c1', 'e1', 'f1'],
+          duration: NoteDuration.SIXTEENTH,
+          orientation: 1,
+          modifiers: [],
+        },
+        {
+          keys: ['c1', 'e1', 'f1'],
+          duration: NoteDuration.SIXTEENTH,
+          orientation: 1,
+          modifiers: [],
+        },
+        {
+          keys: ['c1', 'e1', 'f1'],
+          duration: NoteDuration.SIXTEENTH,
           orientation: 1,
           modifiers: [],
         },
@@ -56,7 +74,19 @@ const staff1 = {
         },
         {
           keys: ['c1', 'e1', 'f1'],
-          duration: NoteDuration.QUARTER,
+          duration: NoteDuration.EIGHT,
+          orientation: 1,
+          modifiers: [],
+        },
+        {
+          keys: [], // Rest
+          duration: NoteDuration.EIGHT,
+          orientation: 1,
+          modifiers: [],
+        },
+        {
+          keys: ['c1', 'e1', 'f1'],
+          duration: NoteDuration.EIGHT,
           orientation: 1,
           modifiers: [],
         },

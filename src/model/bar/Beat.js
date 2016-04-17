@@ -1,87 +1,93 @@
+import invariant from 'invariant';
+import Beam from './Beam';
+import Drawable from '../Drawable';
 
-import Beam from './note/Beam';
+class Beat extends Drawable {
 
-class Beat {
-
-  constructor () {
-    /**
-     *
-     * @private
-     * @property {Note[]}
-     */
-    this.notes = [];
-    /**
-     *
-     * @private
-     * @property {Number}
-     */
-    this.duration = 0;
-    /**
-     *
-     * @private
-     * @property {Beam}
-     */
-    this.beam = null;
+  constructor(timeSignature) {
+    super('');
+    this._notes = [];
+    this._beam = null;
+    this._duration = 0;
+    this._size = timeSignature.getBeatDuration() || 4;
   }
 
   /**
    *
    * @param {Note} n
    */
-  addNote (n) {
-      this.duration += 4 / parseFloat(n.getDuration());
-      this.notes.push(n);
-      this.format();
+  addNote(n) {
+    invariant(!this.isFull(), 'Invalid note insertion, beat is full');
+
+    this._duration += this._size / parseFloat(n.getDuration());
+    this._notes.push(n);
+    this._createBeams();
   };
+
   /**
    * Draw beat notes
    * @param {RendererContext}
    */
-  draw  (ctx) {
-      this.notes.forEach(function(note) {
-          note.draw(ctx);
-          ctx.x += ctx.getScaledValue(note.getWidth());
-      });
+  draw(ctx) {
+    this.beforeDraw(ctx);
 
-      if(this.beam !== null){
-          this.beam.draw(ctx);
-      }
+    // Set rest position
+
+    this._notes.forEach(function(note) {
+        note.draw(ctx);
+    });
+
+    if(this._beam !== null) {
+      this._beam.draw(ctx);
+    }
+
+    this.afterDraw(ctx);
   };
+
   /**
    * Format beat notes and create a beam if it needs
    */
-  format () {
-      var currentNote,
-          nextNote,
-          lastNote,
-          flagedNotes = 0,
-          _this = this;;
-      //
-      _this.beam = null;
-      //
-      this.notes.forEach(function(note) {
-          if(note.hasFlag()){
-              flagedNotes++;
-          }
-      });
-      //
-      if(flagedNotes > 1){
-          _this.beam = new Beam();
-          this.notes.forEach(function(note) {
-              _this.beam.addNote(note);
-          });
+  _createBeams() {
+    var currentNote,
+        nextNote,
+        lastNote,
+        flagedNotes = 0,
+        _this = this;
+
+    _this.beam = null;
+
+    this._notes.forEach((note) => {
+      if (note.hasFlag()) {
+        flagedNotes++;
       }
+    });
+
+    if (flagedNotes > 1) {
+      _this._beam = new Beam();
+      this._notes.forEach((note) => {
+        _this._beam.addNote(note);
+      });
+    }
   };
+
+  getDuration() {
+    return this._duration;
+  }
+
+  isFull() {
+    return this._duration >= 1;
+  }
+
   /**
    *
    * @returns {Number}
    */
-  getWidth () {
-      var width = 0;
-      this.notes.forEach(function (note) {
-          width += note.getWidth();
-      });
-      return width;
+  getWidth() {
+    var width = 0;
+    this.notes.forEach(function(note) {
+        width += note.getWidth();
+    });
+    return width;
   };
 }
 

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/model/bar/Note.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createScore">createScore</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">constants</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-KEY_NAME">KEY_NAME</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-KeyNameList">KeyNameList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NoteDuration">NoteDuration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NoteModifier">NoteModifier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NoteOrientation">NoteOrientation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getProps">getProps</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">glyph</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/glyph/Font.js~Font.html">Font</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/glyph/Glyph.js~Glyph.html">Glyph</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/glyph/GlyphCode.js~GlyphCode.html">GlyphCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/glyph/Outline.js~Outline.html">Outline</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">model</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Bar.js~Bar.html">Bar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Drawable.js~Drawable.html">Drawable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Score.js~Score.html">Score</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Staff.js~Staff.html">Staff</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">model/bar</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/bar/Beat.js~Beat.html">Beat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/bar/Note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/bar/NoteUtil.js~NoteUtil.html">NoteUtil</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">model/bar/note</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/bar/note/Flag.js~Flag.html">Flag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/bar/note/Head.js~Head.html">Head</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/bar/note/Key.js~Key.html">Key</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">model/clef</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/clef/TrebleClef.js~TrebleClef.html">TrebleClef</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">test</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SCORE">SCORE</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">util</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/util/Comparable.js~Comparable.html">Comparable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/util/DrawLog.js~DrawLog.html">DrawLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/util/Observable.js~Observable.html">Observable</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/model/bar/Note.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import invariant from &apos;invariant&apos;;
+import Drawable from &apos;../Drawable&apos;;
+import DrawLog from &apos;../../util/DrawLog&apos;;
+import Collections from &apos;../../util/Collections&apos;;
+import Steam from &apos;./note/Steam&apos;;
+import NoteUtil from &apos;./NoteUtil&apos;;
+import {
+  NoteOrientation,
+  NoteDuration,
+  NoteModifier
+} from &apos;../../constants/Note&apos;;
+
+import Glyph from &apos;../../glyph/Glyph&apos;;
+
+
+
+class Note extends Drawable {
+
+  /**
+   *
+   * @param {String[]} keys [&apos;c&apos;,&apos;e&apos;,&apos;f&apos;,&apos;b&apos;]
+   * @param {Number} duration note duration
+   * @param {Number} orientation 1 or -1
+   * @param {String[]} modifiers [&apos;dot&apos;,&apos;accent&apos;,&apos;flam&apos;]
+   */
+  constructor ({ keys, duration, orientation, modifiers }) {
+    super();
+
+    invariant(keys, &apos;Required parameter `{keys}`&apos;);
+    invariant(duration, &apos;Required parameter `{duration}`&apos;);
+
+    this._steam = null;
+    this._flagGlyph = null;
+    this._beam = null;
+    this._duration = 0;
+    this._orientation = 1;
+    this.setDuration(duration || 0);
+    this.setOrientation(orientation || NoteOrientation.UP);
+    this._heads = NoteUtil.createHeads(keys, this._duration);
+
+    // TODO: use ES6 sort
+    Collections.sort(this._heads);
+
+    // create a steam
+    if (this._duration &gt; NoteDuration.WHOLE) {
+      this._steam = new Steam(this);
+    }
+
+    //create a flag
+    if (!this.isRest() &amp;&amp; this._duration &gt;= NoteDuration.EIGHT) {
+      //this._flagGlyph = null;
+    }
+  }
+
+  draw (ctx) {
+    this.beforeDraw(ctx);
+    if (this.isRest()) {
+      return;
+    }
+
+    this._heads.forEach(function (head) {
+      //After draw the head the x and y values will be updated
+      head.draw(ctx);
+    });
+
+    //Draw steam
+    if (this._steam != null) {
+      //After draw the steam the x, y and height values will be updated
+      this._steam.draw(ctx, this);
+    }
+
+    //Draw the flag
+    if (this._beam === null &amp;&amp; this._flagGlyph != null) {
+      this._flagGlyph.paint(ctx, this._steam.p1.x, this._steam.p1.y);
+    }
+
+    ctx.x += ctx.props.BAR_WIDTH / this._duration;
+    this.afterDraw(ctx);
+  }
+
+  /**
+   *
+   * @return {Head[]} heads
+   */
+  getHeads () {
+    return this._heads;
+  }
+
+  updateWidth(ctx) {
+    //let width = ctx.getScaledValue(ctx.props.NOTE_HEAD_WIDTH + ctx.props.NOTE_RIGHT_PADDING);
+    this.width = ctx.props.BAR_WIDTH / this._duration;
+  }
+
+  /**
+   * @public
+   * @param {Head[]} heads
+   */
+  setHeads (heads) {
+    this._heads = heads;
+  }
+
+  /**
+   * @public
+   * @return {Integer} duration
+   */
+  getDuration () {
+    return this._duration;
+  }
+
+  /**
+   * @public
+   * @param {Integer} duration
+   */
+  setDuration (duration) {
+    invariant(duration, &apos;Invalid note duration&apos;);
+    this._duration = duration;
+  }
+
+  /**
+   *
+   * @return {Integer} width
+   */
+  getWidth () {
+    return this.width;
+  }
+
+  /**
+   *
+   * @return {Key} key
+   */
+  getMaxKey () {
+    return this._heads[this._heads.length - 1].getKey();
+  }
+
+  /**
+   *
+   * @return {Key} key
+   */
+  getMinKey () {
+    return this._heads[0].getKey();
+  }
+
+  /**
+   *
+   * @param {Beam} beam
+   */
+  setBeam (beam) {
+    this._beam = beam;
+  }
+
+  /**
+   *
+   * @return {Boolean}
+   */
+  isRest () {
+    return this._heads.length === 0;
+  }
+
+  /**
+   *
+   * @return {Boolean}
+   */
+  hasFlag () {
+    return this._flagGlyph != null;
+  }
+
+  /**
+   *
+   * @return {Integer}
+   */
+  getOrientation () {
+    return this._orientation;
+  }
+
+  /**
+   *
+   * @param {Integer} orientation
+   */
+  setOrientation (orientation) {
+    this._orientation = orientation;
+  }
+
+  /**
+   *
+   * @return {Steam}
+   */
+  getSteam () {
+    return this._steam;
+  }
+
+  getSteamCount() {
+    if (duration === 4) {
+      return 1;
+    }
+    return this._duration
+  }
+
+  hasSteam(prevNote, nextNote) {
+
+  }
+
+}
+
+export default Note;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.6)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

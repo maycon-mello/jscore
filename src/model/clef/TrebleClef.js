@@ -38,14 +38,14 @@ class TrebleClef extends Drawable {
     // int location = (currentOctave - middleOctave) * 7;
     //
     // return location + (currentKey - middleKey);
-    return -3;
+    return 0;
   }
 
   draw (ctx) {
     //this.beforeRender(ctx);
 
     ctx.addXPadding();
-    this.glyph.render(ctx, ctx.x, ctx.y + 30);
+    this.glyph.render(ctx, ctx.x, ctx.y);
     ctx.addX(this.width);
     ctx.addXPadding();
     this.afterDraw(ctx);

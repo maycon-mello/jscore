@@ -2,8 +2,11 @@ import invariant from 'invariant';
 import Drawable from '../Drawable';
 import DrawLog from '../../util/DrawLog';
 import Collections from '../../util/Collections';
-import Steam from './note/Steam';
 import NoteUtil from './NoteUtil';
+import Steam from './note/Steam';
+import Flag from './note/Flag';
+import Rest from './note/Rest';
+
 import {
   NoteOrientation,
   NoteDuration,
@@ -11,8 +14,6 @@ import {
 } from '../../constants/Note';
 
 import Glyph from '../../glyph/Glyph';
-
-
 
 class Note extends Drawable {
 
@@ -24,16 +25,13 @@ class Note extends Drawable {
    * @param {String[]} modifiers ['dot','accent','flam']
    */
   constructor ({ keys, duration, orientation, modifiers }) {
-    super();
+    super('Note');
 
     invariant(keys, 'Required parameter `{keys}`');
     invariant(duration, 'Required parameter `{duration}`');
 
     this._steam = null;
-    this._flagGlyph = null;
     this._beam = null;
-    this._duration = 0;
-    this._orientation = 1;
     this.setDuration(duration || 0);
     this.setOrientation(orientation || NoteOrientation.UP);
     this._heads = NoteUtil.createHeads(keys, this._duration);
@@ -41,40 +39,43 @@ class Note extends Drawable {
     // TODO: use ES6 sort
     Collections.sort(this._heads);
 
-    // create a steam
-    if (this._duration > NoteDuration.WHOLE) {
-      this._steam = new Steam(this);
-    }
-
-    //create a flag
-    if (!this.isRest() && this._duration >= NoteDuration.EIGHT) {
-      //this._flagGlyph = null;
-    }
+    this._steam = Steam.create(this);
+    this._flag = Flag.create(this);
+    this._rest = Rest.create(this);
   }
 
   draw (ctx) {
     this.beforeDraw(ctx);
-    if (this.isRest()) {
-      return;
-    }
+    // if (this.isRest()) {
+    //   return;
+    // }
 
     this._heads.forEach(function (head) {
-      //After draw the head the x and y values will be updated
+      // After draw the head the x and y values will be updated
       head.draw(ctx);
     });
 
-    //Draw steam
+    // Draw steam
     if (this._steam != null) {
-      //After draw the steam the x, y and height values will be updated
+      // After draw the steam the x, y and height values will be updated
       this._steam.draw(ctx, this);
     }
 
-    //Draw the flag
-    if (this._beam === null && this._flagGlyph != null) {
-      this._flagGlyph.paint(ctx, this._steam.p1.x, this._steam.p1.y);
+    // Draw the flag
+    if (this._flag) {
+      this._flag.draw(ctx);
     }
 
+    if (this._rest) {
+      this._rest.draw(ctx);
+    }
+    // Draw the flag
+    // if (this._beam === null && this._flagGlyph != null) {
+    //   this._flagGlyph.paint(ctx, this._steam.p1.x, this._steam.p1.y);
+    // }
+
     ctx.x += ctx.props.BAR_WIDTH / this._duration;
+
     this.afterDraw(ctx);
   }
 
@@ -161,7 +162,7 @@ class Note extends Drawable {
    * @return {Boolean}
    */
   hasFlag () {
-    return this._flagGlyph != null;
+    return this._flag != null;
   }
 
   /**
@@ -188,15 +189,26 @@ class Note extends Drawable {
     return this._steam;
   }
 
-  getSteamCount() {
-    if (duration === 4) {
-      return 1;
-    }
-    return this._duration
+  getFlagCount() {
+    return NoteUtil.getFlagCount(this);
   }
 
-  hasSteam(prevNote, nextNote) {
+  shouldHaveBeam(nextNote, prevNote) {
+    let orientation = this._orientation;
 
+    if (this.getFlagCount() === 0) {
+      return false;
+    }
+
+    if (NoteUtil.shouldHaveBeam(this, nextNote)) {
+      return true;
+    }
+
+    if (NoteUtil.shouldHaveBeam(this, prevNote)) {
+      return true;
+    }
+
+    return false;
   }
 
 }

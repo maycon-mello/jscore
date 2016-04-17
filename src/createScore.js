@@ -2,7 +2,6 @@ import invariant from 'invariant';
 
 import Score from './model/Score';
 import RendererContext from './RendererContext';
-import Viewport from './ui/Viewport';
 import Drawable from './model/Drawable';
 
 /**

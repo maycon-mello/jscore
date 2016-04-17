@@ -1,18 +1,18 @@
-import RendererContext from '../../../RendererContext';
-import DrawLog from '../../../util/DrawLog';
-import Drawable from "../../Drawable";
+
+import invariant from 'invariant';
+import Drawable from '../../Drawable';
 
 class Steam extends Drawable {
 
   /**
    *
-   * @param {String} key name
-   * @param {Integer} oct
+   * @param {Note} note
    */
-  constructor (n) {
-    super();
+  constructor (note) {
+    super('Steam');
 
-    this.note = n || null;
+    invariant(note, 'Note is required')
+    this.note = note;
     this.p0 = {};
     this.p1 = {};
     this.height = 0;
@@ -54,6 +54,13 @@ class Steam extends Drawable {
     this.p1 = p1;
 
     this.afterDraw(ctx);
+  }
+
+  static create(note) {
+    if (note._duration < 2 || note.isRest()) {
+      return null;
+    }
+    return new Steam(note);
   }
 }
 
