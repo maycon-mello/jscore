@@ -18,8 +18,7 @@ class Head extends Drawable {
   draw(ctx) {
     let headHeight = ctx.props.NOTE_HEAD_HEIGHT;
     let keyLocation = ctx.clef.getKeyLocation(this.key);
-    let y = ctx.y - headHeight * keyLocation;
-
+    let y = ctx.y - (headHeight/2) * keyLocation;
     this.y = y;
     this.x = ctx.x;
     this.glyph.render(ctx, ctx.x, y);

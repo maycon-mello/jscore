@@ -62,6 +62,7 @@ class Drawable extends Comparable {
   }
 
   beforeDraw(ctx) {
+    return;
     let canvasContext = ctx.canvas;
     canvasContext.save();
     canvasContext.fillStyle = 'red';

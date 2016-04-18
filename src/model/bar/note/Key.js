@@ -77,6 +77,13 @@ export default class Key extends Comparable {
     return this.keyName.toString() + this.octave.toString();
   }
 
+  getValue() {
+    return 7 * this.octave + this.keyName.value;
+  }
+
+  getDiference(key) {
+    return this.getValue() - key.getValue();
+  }
   /**
    *
    * @param {Key} key to compare with

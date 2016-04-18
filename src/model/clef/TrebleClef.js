@@ -30,6 +30,7 @@ class TrebleClef extends Drawable {
   }
 
   getKeyLocation (k) {
+    //console.log(this.middle.getValue())
     // int middleKey = middle.getKeyName().ordinal();
     // int currentKey = k.getKeyName().ordinal();
     //
@@ -38,7 +39,8 @@ class TrebleClef extends Drawable {
     // int location = (currentOctave - middleOctave) * 7;
     //
     // return location + (currentKey - middleKey);
-    return 0;
+    //return k.getDiference(this.middle) / 2;
+    return k.getDiference(this.middle);
   }
 
   draw (ctx) {

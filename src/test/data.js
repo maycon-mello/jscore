@@ -1,6 +1,6 @@
 import { NoteDuration } from '../constants/Note';
 
-const staff1 = {
+const stafa2 = {
   clef: 'treble',
   bars: [
     // Bar
@@ -9,21 +9,27 @@ const staff1 = {
       notes: [
         // Note
         {
-          keys: ['c1', 'e1', 'f1'],
-          duration: NoteDuration.HALF,
+          keys: ['a2'],
+          duration: NoteDuration.QUARTER,
           orientation: 1,
           modifiers: [],
         },
-        // Note
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['g2'],
           duration: NoteDuration.QUARTER,
           orientation: 1,
           modifiers: [],
         },
         // Note
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['c2'],
+          duration: NoteDuration.QUARTER,
+          orientation: 1,
+          modifiers: [],
+        },
+        // Note
+        {
+          keys: ['c2'],
           duration: NoteDuration.QUARTER,
           orientation: 1,
           modifiers: [],
@@ -35,45 +41,45 @@ const staff1 = {
       notes: [
         // Note
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['b2'],
           duration: NoteDuration.QUARTER,
           orientation: 1,
           modifiers: [],
         },
         // Note
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['a2'],
           duration: NoteDuration.SIXTEENTH,
           orientation: 1,
           modifiers: [],
         },
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['a2'],
           duration: NoteDuration.SIXTEENTH,
           orientation: 1,
           modifiers: [],
         },
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['a2'],
           duration: NoteDuration.SIXTEENTH,
           orientation: 1,
           modifiers: [],
         },
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['a2'],
           duration: NoteDuration.SIXTEENTH,
           orientation: 1,
           modifiers: [],
         },
         // Note
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['e2'],
           duration: NoteDuration.EIGHT,
           orientation: 1,
           modifiers: [],
         },
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['g2'],
           duration: NoteDuration.EIGHT,
           orientation: 1,
           modifiers: [],
@@ -85,7 +91,7 @@ const staff1 = {
           modifiers: [],
         },
         {
-          keys: ['c1', 'e1', 'f1'],
+          keys: ['c2'],
           duration: NoteDuration.EIGHT,
           orientation: 1,
           modifiers: [],
@@ -97,5 +103,5 @@ const staff1 = {
 }
 
 export const SCORE = {
-  staffs: [staff1],
+  staffs: [stafa2],
 }

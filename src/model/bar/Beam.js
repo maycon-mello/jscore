@@ -36,13 +36,16 @@ class Beam extends Drawable {
     let steamI = this._notes[0].getSteam();
     let steamF = this._notes[this._notes.length - 1].getSteam();
 
-    let width = steamF.p1.x - steamI.p1.x;
+    let width = steamF.p1.x;
     var canvas = ctx.canvas;
+    canvas.save();
     canvas.beginPath();
     //canvas.moveTo(steamI.p1.x, steamI.p1.y);
-    canvas.rect(steamI.p1.x, steamI.p1.y, width, ctx.props.NOTE_BEAM_HEIGHT);
-    canvas.closePath();
-    canvas.fill();
+    canvas.moveTo(steamI.p1.x, steamI.p1.y)
+    canvas.lineTo(steamF.p1.x + 1, steamF.p1.y);
+    canvas.lineWidth = 5;
+    canvas.stroke();
+    canvas.restore();
 
     //
     this.afterDraw(ctx);

@@ -1,4 +1,4 @@
-const NOTE_HEAD_HEIGHT = 10;
+const NOTE_HEAD_HEIGHT = 11;
 
 
 const defaultProps = {

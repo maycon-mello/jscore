@@ -62,7 +62,7 @@ class Note extends Drawable {
     }
 
     // Draw the flag
-    if (this._flag) {
+    if (this.hasFlag()) {
       this._flag.draw(ctx);
     }
 
@@ -162,7 +162,7 @@ class Note extends Drawable {
    * @return {Boolean}
    */
   hasFlag () {
-    return this._flag != null;
+    return this._flag != null && this._beam == null;
   }
 
   /**

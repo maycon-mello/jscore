@@ -17,6 +17,9 @@ export default class Flag extends Drawable {
 
   draw(ctx) {
     this.beforeDraw(ctx);
+    // Draw the flag on steam p1 position
+    let p1 = this._note._steam.p1;
+    this.glyph.render(ctx, p1.x, p1.y);
     this.afterDraw(ctx);
   }
 
