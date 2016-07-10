@@ -16,3 +16,5 @@ class jScore {
     return createScore({ container });
   }
 }
+
+export default jScore;
