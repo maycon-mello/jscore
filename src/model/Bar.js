@@ -59,7 +59,7 @@ class Bar extends Drawable {
     }
 
     beat.addNote(note);
-    return note;
+    return this;
   }
 
   /**

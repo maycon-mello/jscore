@@ -5,13 +5,14 @@ import DrawLog from './util/DrawLog';
 
 DrawLog.setLogEnabled(true);
 
-let container = document.getElementById('root');
-let score = createScore({container});
-
-
-score.setData(SCORE);
-score.render();
-
-console.log(score);
-console.log('oo');
-console.log('56');
+class jScore {
+  /**
+   * Create a new score
+   * @param {String} containerSelector
+   * @return {Score} score instance
+   */
+  static create(containerSelector) {
+    let container = document.querySelector(containerSelector);
+    return createScore({ container });
+  }
+}
