@@ -4,14 +4,14 @@ JScore is a music notation rendering API written in JavaScript.
 ```javascript
   import JScore from 'jscore';
 
-  let score = JScore.create('#myScore');
+  const score = JScore.create('#myScore');
 
   // Create staff
-  let staff = score.createStaff('drumset');
+  const staff = score.createStaff('drumset');
 
   // Create bars
-  let bar1 = staff.createBar('4/4');
-  let bar2 = staff.createBar('4/4');
+  const bar1 = staff.createBar('4/4');
+  const bar2 = staff.createBar('4/4');
 
   // Kick, Snare and hihat variables
   let hihat = {
@@ -36,7 +36,7 @@ JScore is a music notation rendering API written in JavaScript.
   }
 
   // Create Hihats
-  for (let i = 0; i < 8) {
+  for (let i = 0; i < 8; i++) {
     bar1.addNote(hihat);
     bar2.addNote(hihat);
   }
